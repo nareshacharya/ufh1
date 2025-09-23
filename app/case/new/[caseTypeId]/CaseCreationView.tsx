@@ -27,6 +27,29 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
   const [isDirty, setIsDirty] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [template, setTemplate] = useState<any>(null);
+  const [templateLoading, setTemplateLoading] = useState(true);
+
+  // Load template asynchronously
+  useEffect(() => {
+    const loadTemplate = async () => {
+      try {
+        setTemplateLoading(true);
+        const loadedTemplate = await getTemplate(caseTypeId);
+        if (loadedTemplate) {
+          setTemplate(loadedTemplate);
+        } else {
+          setError(`Template not found for case type: ${caseTypeId}`);
+        }
+      } catch (err) {
+        setError(`Failed to load template: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      } finally {
+        setTemplateLoading(false);
+      }
+    };
+
+    loadTemplate();
+  }, [caseTypeId]);
 
   // Auto‑generate ID based on case type
   useEffect(() => {
@@ -102,10 +125,9 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
   };
 
   const validateCurrentStep = () => {
-    const caseTemplate = getTemplate(caseTypeId);
-    if (!caseTemplate) return false;
+    if (!template) return false;
 
-    const currentStage = caseTemplate.stages[currentStageIndex];
+    const currentStage = template.stages[currentStageIndex];
     const currentStep = currentStage?.steps[currentStepIndex];
 
     if (currentStep) {
@@ -120,12 +142,11 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
   const handleNext = () => {
     if (!validateCurrentStep()) return;
 
-    const caseTemplate = getTemplate(caseTypeId);
-    if (!caseTemplate) return;
+    if (!template) return;
 
-    const currentStage = caseTemplate.stages[currentStageIndex];
+    const currentStage = template.stages[currentStageIndex];
     const totalSteps = currentStage?.steps.length || 0;
-    const totalStages = caseTemplate.stages.length;
+    const totalStages = template.stages.length;
 
     if (currentStepIndex < totalSteps - 1) {
       setCurrentStepIndex(prev => prev + 1);
@@ -139,9 +160,8 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
     if (currentStepIndex > 0) {
       setCurrentStepIndex(prev => prev - 1);
     } else if (currentStageIndex > 0) {
-      const caseTemplate = getTemplate(caseTypeId);
-      if (caseTemplate) {
-        const prevStage = caseTemplate.stages[currentStageIndex - 1];
+      if (template) {
+        const prevStage = template.stages[currentStageIndex - 1];
         setCurrentStageIndex(prev => prev - 1);
         setCurrentStepIndex(prevStage.steps.length - 1);
       }
@@ -196,24 +216,43 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
     );
   }
 
-  const caseTemplate = getTemplate(caseTypeId);
-  if (!caseTemplate) {
+  if (templateLoading) {
     return (
       <div className="text-center py-12">
         <div className="mb-4" style={{ color: 'rgb(var(--fg-primary))' }}>
-          <i className="ri-error-warning-line text-4xl mb-2" />
-          <div className="text-lg font-medium">Case type not found</div>
+          <i className="ri-loader-4-line text-4xl mb-2 animate-spin" />
+          <h2 className="text-xl font-semibold">Loading template...</h2>
+          <p className="text-sm mt-2" style={{ color: 'rgb(var(--fg-secondary))' }}>
+            Please wait while we load the {caseTypeId} template
+          </p>
         </div>
-        <button onClick={handleCancel} className="btn-secondary">
-          Go Back
-        </button>
       </div>
     );
   }
 
-  const currentStage = caseTemplate.stages[currentStageIndex];
+  if (!template) {
+    return (
+      <div className="text-center py-12">
+        <div className="mb-4" style={{ color: 'rgb(var(--fg-primary))' }}>
+          <i className="ri-error-warning-line text-4xl mb-2" />
+          <h2 className="text-xl font-semibold">Template Not Found</h2>
+          <p className="text-sm mt-2" style={{ color: 'rgb(var(--fg-secondary))' }}>
+            {error || `No template found for case type: ${caseTypeId}`}
+          </p>
+          <button
+            onClick={() => router.back()}
+            className="btn-primary mt-4"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentStage = template.stages[currentStageIndex];
   const currentStep = currentStage?.steps[currentStepIndex];
-  const totalStages = caseTemplate.stages.length;
+  const totalStages = template.stages.length;
   const isLastStep =
     currentStageIndex === totalStages - 1 && currentStepIndex === (currentStage?.steps.length || 1) - 1;
   const isFirstStep = currentStageIndex === 0 && currentStepIndex === 0;
@@ -226,14 +265,14 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold" style={{ color: 'rgb(var(--fg-primary))' }}>
-                Create New {caseTemplate.name}
+                Create New {template.name}
                 <span className="ml-3 text-lg font-normal" style={{ color: 'rgb(var(--fg-secondary))' }}>
                   #{autoGeneratedId}
                 </span>
               </h1>
               <p className="mt-1" style={{ color: 'rgb(var(--fg-secondary))' }}>
                 {currentStep?.description ||
-                  `Complete the form below to create a new ${caseTemplate.name.toLowerCase()}`}
+                  `Complete the form below to create a new ${template.name.toLowerCase()}`}
               </p>
             </div>
             <div className="flex items-center space-x-3">
@@ -255,7 +294,7 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
           >
             <div className="relative">
               <div className="flex items-center justify-between">
-                {caseTemplate.stages.map((stage, stageIndex) => {
+                {template.stages.map((stage, stageIndex) => {
                   const isCurrentStage = stageIndex === currentStageIndex;
                   const isCompletedStage = stageIndex < currentStageIndex;
                   const isFutureStage = stageIndex > currentStageIndex;
@@ -362,7 +401,7 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
                   </h2>
                   <p className="text-sm mt-1" style={{ color: 'rgb(var(--fg-secondary))' }}>
                     Step {currentStageIndex * (currentStage?.steps.length || 1) + currentStepIndex + 1} of{' '}
-                    {caseTemplate.stages.reduce((total, stage) => total + stage.steps.length, 0)}
+                    {template.stages.reduce((total, stage) => total + stage.steps.length, 0)}
                   </p>
                 </div>
                 <div className="text-sm" style={{ color: 'rgb(var(--fg-tertiary))' }}>
@@ -415,7 +454,7 @@ export default function CaseCreationView({ caseTypeId }: CaseCreationViewProps) 
                       Next:{' '}
                       {currentStepIndex < (currentStage?.steps.length || 1) - 1
                         ? currentStage?.steps[currentStepIndex + 1]?.name
-                        : caseTemplate.stages[currentStageIndex + 1]?.steps[0]?.name}
+                        : template.stages[currentStageIndex + 1]?.steps[0]?.name}
                       <i className="ri-arrow-right-line" />
                     </button>
                   ) : (
@@ -554,7 +593,7 @@ function IngredientPrimaryIdentification({ formData, onChange, validationErrors,
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="field-wrapper">
           <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-primary))' }}>
             Ingredient Name <span className="text-red-500 font-bold">*</span>
@@ -680,7 +719,7 @@ function IngredientRegulatoryStandards({ formData, onChange, validationErrors }:
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="field-wrapper">
           <label htmlFor="casNumber" className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-primary))' }}>
             CAS Number
@@ -791,7 +830,7 @@ function IngredientPhysicalProperties({ formData, onChange, validationErrors }: 
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="field-wrapper">
           <label htmlFor="physicalState" className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-primary))' }}>
             Physical State <span className="text-red-500 font-bold">*</span>
@@ -1006,7 +1045,7 @@ function IngredientChemicalData({ formData, onChange, validationErrors }: any) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="field-wrapper">
           <label htmlFor="molecularFormula" className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-primary))' }}>
             Molecular Formula
@@ -1070,7 +1109,7 @@ function IngredientThermalProperties({ formData, onChange, validationErrors }: a
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="field-wrapper">
           <label htmlFor="meltingPoint" className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-primary))' }}>
             Melting Point (°C)
