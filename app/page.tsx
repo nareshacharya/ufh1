@@ -225,71 +225,80 @@ export default function HomePage() {
       <main className="p-6 max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-rgb-fg-primary mb-2">
-            Good Morning, {user?.name || 'User'}!
+          <h1 className="text-4xl font-bold text-rgb-fg-primary mb-2">
+            Welcome, {user?.name || 'User'}!
           </h1>
-          <p className="text-lg text-rgb-fg-secondary mb-1">
-            Welcome back to your Perfumery Workbench
-          </p>
-          <p className="text-sm text-rgb-fg-tertiary" suppressHydrationWarning={true}>
-            {currentTime}
-          </p>
         </div>
 
         {/* Quick Stats Overview - Single Row */}
         <div className="grid grid-cols-4 gap-6 mb-6">
-          {stats.map((stat, index) => (
-            <div key={index} className="stat-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-2xl font-bold text-rgb-fg-primary">{stat.value}</p>
-                  <p className="text-sm text-rgb-fg-secondary">{stat.label}</p>
-                  <div className="flex items-center gap-1 mt-1">
-                    <i className={`ri-arrow-${stat.trend === 'up' ? 'up' : 'down'}-line text-xs ${
-                      stat.trend === 'up' ? 'text-success' : 'text-error'
-                    }`}></i>
-                    <span className={`text-xs font-medium ${
-                      stat.trend === 'up' ? 'text-success' : 'text-error'
-                    }`}>
-                      {stat.change}
-                    </span>
+          {stats.map((stat, index) => {
+            // Use diverse colors for icons and backgrounds
+            const cardStyles = [
+              { iconBg: 'bg-purple-100', iconColor: 'text-purple-600', accentBg: 'bg-purple-50', borderColor: 'border-l-purple-500' },
+              { iconBg: 'bg-green-100', iconColor: 'text-green-600', accentBg: 'bg-green-50', borderColor: 'border-l-green-500' },
+              { iconBg: 'bg-blue-100', iconColor: 'text-blue-600', accentBg: 'bg-blue-50', borderColor: 'border-l-blue-500' },
+              { iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600', accentBg: 'bg-yellow-50', borderColor: 'border-l-yellow-500' }
+            ];
+            const cardStyle = cardStyles[index % cardStyles.length];
+            
+            return (
+              <div key={index} className={`modern-card ${cardStyle.accentBg} border-l-4 ${cardStyle.borderColor}`}>
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${cardStyle.iconBg}`}>
+                    <i className={`${stat.icon} text-xl ${cardStyle.iconColor}`}></i>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <i className={`ri-arrow-${stat.trend === 'up' ? 'up' : 'down'}-line text-xs text-green-600`}></i>
+                    <span className="text-xs font-medium text-green-600">{stat.change}</span>
                   </div>
                 </div>
-                <div className={`stat-icon ${stat.color}`}>
-                  <i className={`${stat.icon} text-lg`}></i>
+                <div className="space-y-1">
+                  <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                  <div className="text-sm text-gray-600">{stat.label}</div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Main Dashboard Grid - Bento Box Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
-          {/* Quick Actions - Enhanced Bento Card */}
-          <div className="lg:col-span-6">
-            <div className="accent-card-green h-full">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-6 h-6 flex items-center justify-center">
-                  <i className="ri-flashlight-line text-lg text-white"></i>
-                </div>
-                <h2 className="text-lg font-semibold text-white">Quick Actions</h2>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {accessibleActions.map((action) => (
-                  <Link key={action.id} href={action.href} className="action-card-light group">
-                    <div className="action-icon mb-3 group-hover:scale-110 transition-transform">
-                      <i className={`${action.icon} text-xl text-white`}></i>
-                    </div>
-                    <span className="text-sm font-medium text-white text-center">{action.label}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          {/* Performance Dashboard - Enhanced (75% width) */}
+          <div className="lg:col-span-9">
+            <PerformanceDashboard />
           </div>
 
-          {/* Performance Dashboard - Enhanced */}
-          <div className="lg:col-span-6">
-            <PerformanceDashboard />
+          {/* Quick Actions - Enhanced Bento Card (25% width) */}
+          <div className="lg:col-span-3">
+            <div className="modern-card h-full">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-6 h-6 flex items-center justify-center">
+                  <i className="ri-flashlight-line text-lg text-primary"></i>
+                </div>
+                <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
+              </div>
+              <div className="space-y-2 h-full flex flex-col">
+                {accessibleActions.map((action, index) => {
+                  const cardColors = [
+                    { bg: '#4AA35F', text: 'text-white', icon: 'text-white' },
+                    { bg: '#8078E2', text: 'text-white', icon: 'text-white' },
+                    { bg: '#E9BB46', text: 'text-white', icon: 'text-white' },
+                    { bg: '#79A6F6', text: 'text-white', icon: 'text-white' }
+                  ];
+                  const cardColor = cardColors[index % cardColors.length];
+                  
+                  return (
+                    <Link key={action.id} href={action.href} className="quick-action-card rounded-lg p-2 flex flex-col items-center justify-center text-center hover:opacity-90 transition-opacity flex-1" style={{ backgroundColor: cardColor.bg, color: 'white !important' }}>
+                      <div className="w-16 h-16 flex items-center justify-center mb-1">
+                        <i className={`${action.icon} text-3xl`} style={{ color: 'white !important' }}></i>
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: 'white !important' }}>{action.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -343,26 +352,26 @@ export default function HomePage() {
             </div>
 
             {/* Top Ingredients */}
-            <div className="accent-card-green">
+            <div className="modern-card">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-6 flex items-center justify-center">
-                  <i className="ri-star-line text-lg text-white"></i>
+                  <i className="ri-star-line text-lg text-primary"></i>
                 </div>
-                <h2 className="text-lg font-semibold text-white">Most Used Ingredients</h2>
+                <h2 className="text-lg font-semibold text-gray-900">Most Used Ingredients</h2>
               </div>
               <div className="space-y-3">
                 {topIngredients.slice(0, 4).map((ingredient, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex-1 mr-3">
-                      <p className="text-sm font-medium text-white mb-1">{ingredient.name}</p>
-                      <div className="w-full bg-white/20 rounded-full h-2">
+                      <p className="text-sm font-medium text-gray-900 mb-1">{ingredient.name}</p>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
-                          className="bg-white h-2 rounded-full transition-all duration-500"
+                          className="bg-primary h-2 rounded-full transition-all duration-500"
                           style={{ width: `${ingredient.usage}%` }}
                         ></div>
                       </div>
                     </div>
-                    <span className="text-xs font-medium text-white/80">{ingredient.change}</span>
+                    <span className="text-xs font-medium text-gray-600">{ingredient.change}</span>
                   </div>
                 ))}
               </div>

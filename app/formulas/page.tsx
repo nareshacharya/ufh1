@@ -304,38 +304,38 @@ export default function FormulasPage() {
         {/* Summary Cards */}
         <div className="grid grid-cols-4 gap-6 mb-6">
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--primary)) !important' }}>
-              <i className="ri-test-tube-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-purple-100">
+              <i className="ri-test-tube-line text-purple-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>{mockFormulas.length}</div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Total Formulas</div>
+            <div className="text-2xl font-bold mb-1 text-gray-900">{mockFormulas.length}</div>
+            <div className="text-sm text-gray-600">Total Formulas</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--accent-1)) !important' }}>
-              <i className="ri-check-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-green-100">
+              <i className="ri-check-line text-green-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {mockFormulas.filter(f => f.status === 'Active').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Active</div>
+            <div className="text-sm text-gray-600">Active</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--warning)) !important' }}>
-              <i className="ri-time-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-blue-100">
+              <i className="ri-time-line text-blue-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {mockFormulas.filter(f => f.status === 'In Review').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>In Review</div>
+            <div className="text-sm text-gray-600">In Review</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--accent-2)) !important' }}>
-              <i className="ri-draft-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-pink-100">
+              <i className="ri-draft-line text-pink-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {mockFormulas.filter(f => f.status === 'Draft').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Drafts</div>
+            <div className="text-sm text-gray-600">Drafts</div>
           </div>
         </div>
 

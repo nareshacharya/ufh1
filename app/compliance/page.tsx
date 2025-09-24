@@ -328,38 +328,38 @@ export default function CompliancePage() {
         {/* Summary Cards */}
         <div className="grid grid-cols-4 gap-6 mb-6">
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--primary)) !important' }}>
-              <i className="ri-shield-check-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-purple-100">
+              <i className="ri-shield-check-line text-purple-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>{complianceRuns.length}</div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Total Runs</div>
+            <div className="text-2xl font-bold mb-1 text-gray-900">{complianceRuns.length}</div>
+            <div className="text-sm text-gray-600">Total Runs</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--accent-1)) !important' }}>
-              <i className="ri-check-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-green-100">
+              <i className="ri-check-line text-green-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {complianceRuns.filter(r => r.overallCompliance === 'COMPLIANT').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Compliant</div>
+            <div className="text-sm text-gray-600">Compliant</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--error)) !important' }}>
-              <i className="ri-close-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-red-100">
+              <i className="ri-close-line text-red-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {complianceRuns.filter(r => r.overallCompliance === 'NON_COMPLIANT').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Non-Compliant</div>
+            <div className="text-sm text-gray-600">Non-Compliant</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--accent-2)) !important' }}>
-              <i className="ri-play-circle-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-blue-100">
+              <i className="ri-play-circle-line text-blue-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {complianceRuns.filter(r => r.status === 'running').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Running</div>
+            <div className="text-sm text-gray-600">Running</div>
           </div>
         </div>
 

@@ -2,71 +2,96 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Modern Purple-Oriented Color Palette - Light Theme */
-  --bg-primary: 255, 255, 255;
-  --bg-secondary: 251, 245, 255;
-  --bg-tertiary: 243, 232, 255;
-  --bg-quaternary: 221, 214, 254;
+  /* Sophisticated Light Theme - Darker Cream Background */
+  --bg-primary: 248, 244, 240;        /* Darker cream - more noticeable */
+  --bg-secondary: 255, 255, 255;      /* Pure white for containers */
+  --bg-tertiary: 248, 250, 252;       /* Light gray for subtle elements */
+  --bg-quaternary: 241, 245, 249;     /* Slightly darker gray */
   
-  --fg-primary: 15, 23, 42;
-  --fg-secondary: 51, 65, 85;
-  --fg-tertiary: 100, 116, 139;
-  --fg-quaternary: 148, 163, 184;
+  --fg-primary: 15, 23, 42;           /* Dark text - high contrast */
+  --fg-secondary: 51, 65, 85;        /* Medium text */
+  --fg-tertiary: 100, 116, 139;       /* Light text */
+  --fg-quaternary: 148, 163, 184;     /* Very light text */
   
-  --border-primary: 221, 214, 254;
-  --border-secondary: 196, 181, 253;
-  --border-accent: 147, 51, 234;
+  --border-primary: transparent;      /* No borders - flat design */
+  --border-secondary: transparent;   /* No borders - flat design */
+  --border-accent: transparent;       /* No borders - flat design */
   
-  /* Primary and Accent Colors - Purple Theme */
-  --primary: 147, 51, 234;
+  /* Diverse Accent Colors - Inspired by Dashboard Design */
+  --primary: 147, 51, 234;            /* Purple - Primary brand */
   --primary-dark: 126, 34, 206;
   --primary-light: 196, 181, 253;
-  --accent-1: 16, 185, 129;
-  --accent-button: 245, 158, 11;
+  
+  --accent-red: 239, 68, 68;          /* Red - Chinese lantern, alerts */
+  --accent-green: 34, 197, 94;        /* Green - Success, nature elements */
+  --accent-blue: 59, 130, 246;        /* Blue - Info, charts */
+  --accent-yellow: 251, 191, 36;      /* Yellow - Warning, sun elements */
+  --accent-purple: 147, 51, 234;      /* Purple - Max values, special cards */
+  --accent-pink: 236, 72, 153;        /* Pink - Delicate elements */
+  
   --success: 34, 197, 94;
   --warning: 251, 191, 36;
   --error: 239, 68, 68;
-  --info: 147, 51, 234;
+  --info: 59, 130, 246;
   
-  /* Enhanced shade variations for better container visibility */
-  --shade-50: 248, 250, 252;
-  --shade-100: 241, 245, 249;
-  --shade-200: 226, 232, 240;
-  --shade-300: 203, 213, 225;
-  --shade-400: 148, 163, 184;
-  --shade-500: 100, 116, 139;
-  --shade-600: 71, 85, 105;
-  --shade-700: 51, 65, 85;
-  --shade-800: 30, 41, 59;
-  --shade-900: 15, 23, 42;
+  /* Card Colors - Diverse Palette from Inspiration */
+  --card-purple: 147, 51, 234;
+  --card-green: 34, 197, 94;
+  --card-blue: 59, 130, 246;
+  --card-yellow: 251, 191, 36;
+  --card-red: 239, 68, 68;
+  --card-pink: 236, 72, 153;
+  
+  /* Enhanced shade variations */
+  --shade-50: 252, 250, 247;          /* Subtle cream */
+  --shade-100: 255, 255, 255;        /* White */
+  --shade-200: 248, 250, 252;         /* Light gray */
+  --shade-300: 241, 245, 249;         /* Medium gray */
+  --shade-400: 226, 232, 240;         /* Border gray */
+  --shade-500: 203, 213, 225;         /* Text gray */
+  --shade-600: 148, 163, 184;         /* Dark gray */
+  --shade-700: 100, 116, 139;         /* Darker gray */
+  --shade-800: 51, 65, 85;            /* Very dark gray */
+  --shade-900: 15, 23, 42;            /* Darkest gray */
 }
 
 [data-theme="dark"] {
-  /* Modern Purple-Oriented Color Palette - Dark Theme */
-  --bg-primary: 15, 23, 42;
-  --bg-secondary: 30, 41, 59;
-  --bg-tertiary: 51, 65, 85;
-  --bg-quaternary: 71, 85, 105;
+  /* Sophisticated Dark Theme - Deep Background with Flat Containers */
+  --bg-primary: 15, 23, 42;           /* Deep dark blue-gray */
+  --bg-secondary: 30, 41, 59;         /* Dark container background */
+  --bg-tertiary: 51, 65, 85;          /* Medium dark */
+  --bg-quaternary: 71, 85, 105;       /* Light dark */
   
-  --fg-primary: 248, 250, 252;
-  --fg-secondary: 203, 213, 225;
-  --fg-tertiary: 148, 163, 184;
-  --fg-quaternary: 100, 116, 139;
+  --fg-primary: 248, 250, 252;        /* Pure white text */
+  --fg-secondary: 226, 232, 240;      /* Light gray text */
+  --fg-tertiary: 203, 213, 225;       /* Medium gray text */
+  --fg-quaternary: 148, 163, 184;     /* Dark gray text */
   
-  --border-primary: 71, 85, 105;
-  --border-secondary: 100, 116, 139;
-  --border-accent: 167, 139, 250;
+  --border-primary: transparent;      /* No borders - flat design */
+  --border-secondary: transparent;    /* No borders - flat design */
+  --border-accent: transparent;       /* No borders - flat design */
   
-  /* Primary and Accent Colors - Purple Theme Dark */
-  --primary: 196, 181, 253;
-  --primary-dark: 167, 139, 250;
-  --primary-light: 221, 214, 254;
-  --accent-1: 52, 211, 153;
-  --accent-button: 251, 191, 36;
-  --success: 52, 211, 153;
+  /* Refined Color Palette - Subtle and Professional */
+  --primary: 196, 181, 253;            /* Light purple */
+  --primary-dark: 147, 51, 234;       /* Purple */
+  --primary-light: 221, 214, 254;    /* Very light purple */
+  
+  --accent-1: 16, 185, 129;           /* Green - Success */
+  --accent-2: 245, 158, 11;           /* Amber - Warning */
+  --accent-3: 59, 130, 246;           /* Blue - Info */
+  --accent-4: 236, 72, 153;           /* Pink - Error */
+  
+  --success: 34, 197, 94;
   --warning: 251, 191, 36;
-  --error: 248, 113, 113;
-  --info: 196, 181, 253;
+  --error: 239, 68, 68;
+  --info: 59, 130, 246;
+  
+  /* Subtle Card Colors - Only for special highlights */
+  --card-purple: 147, 51, 234;
+  --card-green: 16, 185, 129;
+  --card-blue: 59, 130, 246;
+  --card-amber: 245, 158, 11;
+  --card-pink: 236, 72, 153;
   
   /* Enhanced shade variations for dark theme */
   --shade-50: 15, 23, 42;
@@ -395,19 +420,31 @@ html, body, #__next, [data-reactroot] {
   transform: translateY(-1px);
 }
 
-/* Enhanced card styles with better differentiation - No Borders */
+/* Clean White Cards with Accent Colored Icons */
 .modern-card {
-  background: rgb(var(--bg-secondary)) !important;
-  border: none !important;
+  background: rgb(var(--bg-secondary)) !important;  /* Pure white */
+  border: none !important;                           /* No borders - flat design */
   border-radius: 0.75rem;
-  padding: 1rem;
+  padding: 1.5rem;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: none !important;                       /* Remove all box shadows */
 }
 
 .modern-card:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: none !important;                       /* Remove hover shadows too */
+}
+
+/* Remove all colored card backgrounds - keep only white */
+.modern-card.card-purple,
+.modern-card.card-green,
+.modern-card.card-blue,
+.modern-card.card-yellow,
+.modern-card.card-red,
+.modern-card.card-pink {
+  background: rgb(var(--bg-secondary)) !important;  /* Pure white */
+  border: none !important;
+  color: rgb(var(--fg-primary)) !important;
 }
 
 /* Enhanced card with more visible background difference */
@@ -980,6 +1017,23 @@ a {
 
 a:hover {
   color: rgb(var(--primary-dark)) !important;
+}
+
+/* Quick Actions links - override default link color */
+.quick-action-card {
+  color: white !important;
+}
+
+.quick-action-card:hover {
+  color: white !important;
+}
+
+.quick-action-card * {
+  color: white !important;
+}
+
+.quick-action-card:hover * {
+  color: white !important;
 }
 
 /* Select dropdown theming - No Borders */

@@ -168,7 +168,7 @@ export function PerformanceDashboard() {
       </div>
       <div className="space-y-3">
         {tasks.slice(0, 4).map((task) => (
-          <div key={task.id} className="flex items-start gap-3 p-3 rounded-lg bg-shade-50 hover:bg-shade-100 transition-colors cursor-pointer">
+          <div key={task.id} className="flex items-start gap-3 p-3 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer">
             <div className="flex-shrink-0 mt-1">
               <div className={`w-2 h-2 rounded-full ${
                 task.status === 'completed' ? 'bg-success' :
@@ -203,7 +203,7 @@ export function PerformanceDashboard() {
       </div>
       <div className="space-y-3">
         {recentWork.map((work) => (
-          <div key={work.id} className="flex items-center gap-3 p-3 rounded-lg bg-shade-50 hover:bg-shade-100 transition-colors cursor-pointer">
+          <div key={work.id} className="flex items-center gap-3 p-3 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <i className={`${
@@ -226,7 +226,7 @@ export function PerformanceDashboard() {
               <div className="flex items-center justify-between">
                 <span className="text-xs text-rgb(var(--fg-tertiary))">{work.lastModified}</span>
                 <div className="flex items-center gap-2">
-                  <div className="w-16 h-1.5 bg-shade-200 rounded-full overflow-hidden">
+                  <div className="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-primary rounded-full transition-all duration-300"
                       style={{ width: `${work.progress}%` }}
@@ -246,7 +246,7 @@ export function PerformanceDashboard() {
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
         {metrics.map((metric, index) => (
-          <div key={index} className="p-4 rounded-lg bg-shade-50 hover:bg-shade-100 transition-colors">
+          <div key={index} className="p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
             <div className="flex items-center justify-between mb-2">
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <i className={`${metric.icon} text-primary w-4 h-4 flex items-center justify-center`}></i>
@@ -269,14 +269,14 @@ export function PerformanceDashboard() {
         ))}
       </div>
 
-      <div className="p-4 rounded-lg bg-shade-50">
+      <div className="p-4 rounded-lg bg-gray-100">
         <h4 className="text-sm font-medium text-rgb(var(--fg-secondary)) mb-4">Monthly Progress</h4>
         <div className="space-y-3">
           <div className="flex items-center justify-between text-sm">
             <span className="text-rgb(var(--fg-tertiary))">Formulas Completed</span>
             <span className="font-medium text-rgb(var(--fg-primary))">18/24</span>
           </div>
-          <div className="w-full h-2 bg-shade-200 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: '75%' }}></div>
           </div>
           
@@ -284,7 +284,7 @@ export function PerformanceDashboard() {
             <span className="text-rgb(var(--fg-tertiary))">Compliance Reviews</span>
             <span className="font-medium text-rgb(var(--fg-primary))">12/15</span>
           </div>
-          <div className="w-full h-2 bg-shade-200 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div className="h-full bg-accent-1 rounded-full transition-all duration-500" style={{ width: '80%' }}></div>
           </div>
 
@@ -292,7 +292,7 @@ export function PerformanceDashboard() {
             <span className="text-rgb(var(--fg-tertiary))">Quality Assessments</span>
             <span className="font-medium text-rgb(var(--fg-primary))">22/25</span>
           </div>
-          <div className="w-full h-2 bg-shade-200 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div className="h-full bg-accent-button rounded-full transition-all duration-500" style={{ width: '88%' }}></div>
           </div>
         </div>
@@ -322,18 +322,18 @@ export function PerformanceDashboard() {
   ];
 
   return (
-    <div className="secondary-card">
+    <div className="modern-card">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 flex items-center justify-center">
             <i className="ri-dashboard-line text-lg text-primary"></i>
           </div>
-          <h2 className="text-lg font-semibold text-rgb(var(--fg-primary))">Performance Dashboard</h2>
+          <h2 className="text-lg font-semibold text-rgb(var(--fg-primary))  w-auto">Performance Dashboard</h2>
         </div>
-        <select className="modern-input text-sm py-2 px-3 min-w-0 w-24">
-          <option>7 days</option>
-          <option>30 days</option>
-          <option>90 days</option>
+        <select className="modern-input text-sm py-2 px-2 min-w-0 !w-24">
+          <option>7d</option>
+          <option>30d</option>
+          <option>90d</option>
         </select>
       </div>
 

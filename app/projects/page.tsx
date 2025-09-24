@@ -327,38 +327,38 @@ export default function ProjectsPage() {
         {/* Summary Cards */}
         <div className="grid grid-cols-4 gap-6 mb-6">
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--primary)) !important' }}>
-              <i className="ri-folder-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-purple-100">
+              <i className="ri-folder-line text-purple-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>{mockProjects.length}</div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Total Projects</div>
+            <div className="text-2xl font-bold mb-1 text-gray-900">{mockProjects.length}</div>
+            <div className="text-sm text-gray-600">Total Projects</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--accent-1)) !important' }}>
-              <i className="ri-play-circle-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-green-100">
+              <i className="ri-play-circle-line text-green-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {mockProjects.filter(p => p.status === 'In Progress').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Active</div>
+            <div className="text-sm text-gray-600">Active</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--accent-2)) !important' }}>
-              <i className="ri-check-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-blue-100">
+              <i className="ri-check-line text-blue-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {mockProjects.filter(p => p.status === 'Completed').length}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Completed</div>
+            <div className="text-sm text-gray-600">Completed</div>
           </div>
           <div className="modern-card text-center">
-            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ background: 'rgb(var(--warning)) !important' }}>
-              <i className="ri-currency-line text-white text-lg"></i>
+            <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center bg-yellow-100">
+              <i className="ri-currency-line text-yellow-600 text-lg"></i>
             </div>
-            <div className="text-2xl font-bold mb-1" style={{ color: 'rgb(var(--fg-primary)) !important' }}>
+            <div className="text-2xl font-bold mb-1 text-gray-900">
               {formatBudget(mockProjects.reduce((sum, p) => sum + p.budget, 0))}
             </div>
-            <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>Total Budget</div>
+            <div className="text-sm text-gray-600">Total Budget</div>
           </div>
         </div>
 
