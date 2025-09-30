@@ -1,8 +1,32 @@
 
 import { CaseTemplate } from './schema';
 import { CATALOG_FIELD_SETS } from './catalog';
-import { CaseChromeConfig } from '@/app/features/cases/view/CaseChrome';
 import { validateTemplate } from './validator';
+
+// Chrome configuration interface
+export interface CaseChromeConfig {
+  showRightRail?: boolean;
+  showBreadcrumb?: boolean;
+  showStatusChip?: boolean;
+  showStageProgress?: boolean;
+  layout?: 'default' | 'split';
+  showProgress?: boolean;
+  showActions?: boolean;
+  showMetadata?: boolean;
+  contextualActions?: {
+    id: string;
+    label: string;
+    icon?: string;
+    variant: 'primary' | 'secondary' | 'danger';
+  }[];
+  metadata?: {
+    showCreatedBy?: boolean;
+    showOwner?: boolean;
+    showSLA?: boolean;
+    showLastModified?: boolean;
+    showVersion?: boolean;
+  };
+}
 
 // Chrome configurations for different case types
 export const CASE_CHROME_CONFIGS: Record<string, CaseChromeConfig> = {
@@ -1573,7 +1597,7 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                         { value: 'prohibited', label: 'Prohibited' },
                         { value: 'no_restriction', label: 'No Restriction' }
                       ]},
-                      { value: 'notes', label: 'Notes', type: 'text' }
+                      { key: 'notes', label: 'Notes', type: 'text' }
                     ]
                   },
                   {
@@ -4130,46 +4154,7 @@ export function getTemplatesByCategory(category: string): CaseTemplate[] {
   );
 }
 
-export function validateTemplate(template: CaseTemplate): { isValid: boolean; errors: string[] } {
-  const errors: string[] = [];
-  
-  if (!template.id || !template.name || !template.caseTypeId) {
-    errors.push('Template must have id, name, and caseTypeId');
-  }
-  
-  if (!template.stages || template.stages.length === 0) {
-    errors.push('Template must have at least one stage');
-  }
-  
-  template.stages?.forEach((stage, stageIndex) => {
-    if (!stage.steps || stage.steps.length === 0) {
-      errors.push(`Stage ${stageIndex + 1} must have at least one step`);
-    }
-    
-    stage.steps?.forEach((step, stepIndex) => {
-      const hasFieldSets = step.fieldSets && step.fieldSets.length > 0;
-      const hasIncludes = step.include && step.include.length > 0;
-      
-      if (!hasFieldSets && !hasIncludes) {
-        errors.push(`Stage ${stageIndex + 1}, Step ${stepIndex + 1} must have either fieldSets or include declarations`);
-      }
 
-      // Validate include references
-      if (step.include) {
-        step.include.forEach((include, includeIndex) => {
-          if (!CATALOG_FIELD_SETS[include.catalogId]) {
-            errors.push(`Stage ${stageIndex + 1}, Step ${stepIndex + 1}, Include ${includeIndex + 1}: Catalog fieldSet '${include.catalogId}' does not exist`);
-          }
-        });
-      }
-    });
-  });
-  
-  return {
-    isValid: errors.length === 0,
-    errors
-  };
-}
 
 export function getChromeConfig(caseTypeId: string): CaseChromeConfig {
   return CASE_CHROME_CONFIGS[caseTypeId] || {

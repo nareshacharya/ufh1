@@ -12,7 +12,9 @@ export type FieldType =
   | 'attachment' 
   | 'table'
   | 'date'
-  | 'boolean';
+  | 'boolean'
+  | 'textarea'
+  | 'checkbox';
 
 export interface SelectOption {
   value: string;
@@ -26,6 +28,14 @@ export interface TableColumn {
   type: FieldType;
   required?: boolean;
   options?: SelectOption[];
+  validation?: {
+    min?: number;
+    max?: number;
+    pattern?: string;
+    message?: string;
+  };
+  disabled?: boolean;
+  value?: string; // For default values in table columns
 }
 
 export interface Field {
@@ -35,6 +45,7 @@ export interface Field {
   required?: boolean;
   placeholder?: string;
   helpText?: string;
+  pattern?: string; // Top-level pattern support
   validation?: {
     min?: number;
     max?: number;
@@ -181,17 +192,26 @@ export const SelectOptionSchema = z.object({
 export const TableColumnSchema = z.object({
   key: z.string(),
   label: z.string(),
-  type: z.enum(['text', 'number', 'select', 'multiselect', 'richtext', 'attachment', 'table', 'date', 'boolean']),
+  type: z.enum(['text', 'number', 'select', 'multiselect', 'richtext', 'attachment', 'table', 'date', 'boolean', 'textarea', 'checkbox']),
   required: z.boolean().optional(),
-  options: z.array(SelectOptionSchema).optional()
+  options: z.array(SelectOptionSchema).optional(),
+  validation: z.object({
+    min: z.number().optional(),
+    max: z.number().optional(),
+    pattern: z.string().optional(),
+    message: z.string().optional()
+  }).optional(),
+  disabled: z.boolean().optional(),
+  value: z.string().optional()
 });
 
 export const FieldSchema = z.object({
   id: z.string().min(1, 'Field ID is required'),
   label: z.string().min(1, 'Field label is required'),
-  type: z.enum(['text', 'number', 'select', 'multiselect', 'richtext', 'attachment', 'table', 'date', 'boolean']),
+  type: z.enum(['text', 'number', 'select', 'multiselect', 'richtext', 'attachment', 'table', 'date', 'boolean', 'textarea', 'checkbox']),
   required: z.boolean().optional(),
   placeholder: z.string().optional(),
+  pattern: z.string().optional(),
   helpText: z.string().optional(),
   validation: z.object({
     min: z.number().optional(),
