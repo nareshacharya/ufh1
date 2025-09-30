@@ -225,15 +225,9 @@ export default function HomePage() {
       <main className="p-6 max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-rgb-fg-primary mb-2">
-            Good Morning, {user?.name || 'User'}!
+          <h1 className="text-4xl font-bold text-rgb-fg-primary">
+            Welcome, {user?.name || 'User'}!
           </h1>
-          <p className="text-lg text-rgb-fg-secondary mb-1">
-            Welcome back to your Perfumery Workbench
-          </p>
-          <p className="text-sm text-rgb-fg-tertiary" suppressHydrationWarning={true}>
-            {currentTime}
-          </p>
         </div>
 
         {/* Quick Stats Overview - Single Row */}

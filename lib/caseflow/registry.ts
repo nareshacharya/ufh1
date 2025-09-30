@@ -1407,12 +1407,14 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                       { key: 'leadTime', label: 'Lead Time (days)', type: 'number' },
                       { key: 'minOrderQty', label: 'Min Order Qty (kg)', type: 'number' },
                       { key: 'pricePerKg', label: 'Price/kg (USD)', type: 'number' },
-                      { key: 'status', label: 'Status', type: 'select', options: [
-                        { value: 'active', label: 'Active' },
-                        { value: 'backup', label: 'Backup' },
-                        { value: 'discontinued', label: 'Discontinued' },
-                        { value: 'under_evaluation', label: 'Under Evaluation' }
-                      ]},
+                      {
+                        key: 'status', label: 'Status', type: 'select', options: [
+                          { value: 'active', label: 'Active' },
+                          { value: 'backup', label: 'Backup' },
+                          { value: 'discontinued', label: 'Discontinued' },
+                          { value: 'under_evaluation', label: 'Under Evaluation' }
+                        ]
+                      },
                       { key: 'notes', label: 'Notes', type: 'text' }
                     ],
                     helpText: 'List of alternative suppliers for supply chain redundancy'
@@ -1502,11 +1504,13 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                       { key: 'metric', label: 'Metric', type: 'text' },
                       { key: 'target', label: 'Target', type: 'text' },
                       { key: 'actual', label: 'Actual', type: 'text' },
-                      { key: 'trend', label: 'Trend', type: 'select', options: [
-                        { value: 'improving', label: 'Improving' },
-                        { value: 'stable', label: 'Stable' },
-                        { value: 'declining', label: 'Declining' }
-                      ]},
+                      {
+                        key: 'trend', label: 'Trend', type: 'select', options: [
+                          { value: 'improving', label: 'Improving' },
+                          { value: 'stable', label: 'Stable' },
+                          { value: 'declining', label: 'Declining' }
+                        ]
+                      },
                       { key: 'notes', label: 'Notes', type: 'text' }
                     ],
                     defaultValue: [
@@ -1577,26 +1581,30 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                     label: 'IFRA Restrictions',
                     type: 'table',
                     columns: [
-                      { key: 'category', label: 'IFRA Category', type: 'select', options: [
-                        { value: 'cat1', label: 'Category 1' },
-                        { value: 'cat2', label: 'Category 2' },
-                        { value: 'cat3', label: 'Category 3' },
-                        { value: 'cat4', label: 'Category 4' },
-                        { value: 'cat5', label: 'Category 5' },
-                        { value: 'cat6', label: 'Category 6' },
-                        { value: 'cat7', label: 'Category 7' },
-                        { value: 'cat8', label: 'Category 8' },
-                        { value: 'cat9', label: 'Category 9' },
-                        { value: 'cat10', label: 'Category 10' },
-                        { value: 'cat11', label: 'Category 11' }
-                      ]},
+                      {
+                        key: 'category', label: 'IFRA Category', type: 'select', options: [
+                          { value: 'cat1', label: 'Category 1' },
+                          { value: 'cat2', label: 'Category 2' },
+                          { value: 'cat3', label: 'Category 3' },
+                          { value: 'cat4', label: 'Category 4' },
+                          { value: 'cat5', label: 'Category 5' },
+                          { value: 'cat6', label: 'Category 6' },
+                          { value: 'cat7', label: 'Category 7' },
+                          { value: 'cat8', label: 'Category 8' },
+                          { value: 'cat9', label: 'Category 9' },
+                          { value: 'cat10', label: 'Category 10' },
+                          { value: 'cat11', label: 'Category 11' }
+                        ]
+                      },
                       { key: 'maxLevel', label: 'Max Level (%)', type: 'number' },
-                      { key: 'restrictionType', label: 'Restriction Type', type: 'select', options: [
-                        { value: 'specification', label: 'Specification' },
-                        { value: 'restricted', label: 'Restricted' },
-                        { value: 'prohibited', label: 'Prohibited' },
-                        { value: 'no_restriction', label: 'No Restriction' }
-                      ]},
+                      {
+                        key: 'restrictionType', label: 'Restriction Type', type: 'select', options: [
+                          { value: 'specification', label: 'Specification' },
+                          { value: 'restricted', label: 'Restricted' },
+                          { value: 'prohibited', label: 'Prohibited' },
+                          { value: 'no_restriction', label: 'No Restriction' }
+                        ]
+                      },
                       { key: 'notes', label: 'Notes', type: 'text' }
                     ]
                   },
@@ -1725,17 +1733,21 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                     columns: [
                       { key: 'allergen', label: 'Allergen', type: 'text' },
                       { key: 'concentration', label: 'Concentration (%)', type: 'number' },
-                      { key: 'method', label: 'Analysis Method', type: 'select', options: [
-                        { value: 'gc_ms', label: 'GC-MS' },
-                        { value: 'hplc', label: 'HPLC' },
-                        { value: 'calculation', label: 'Calculation' },
-                        { value: 'literature', label: 'Literature Value' }
-                      ]},
-                      { key: 'declarationRequired', label: 'Declaration Required', type: 'select', options: [
-                        { value: 'yes', label: 'Yes' },
-                        { value: 'no', label: 'No' },
-                        { value: 'conditional', label: 'Conditional' }
-                      ]}
+                      {
+                        key: 'method', label: 'Analysis Method', type: 'select', options: [
+                          { value: 'gc_ms', label: 'GC-MS' },
+                          { value: 'hplc', label: 'HPLC' },
+                          { value: 'calculation', label: 'Calculation' },
+                          { value: 'literature', label: 'Literature Value' }
+                        ]
+                      },
+                      {
+                        key: 'declarationRequired', label: 'Declaration Required', type: 'select', options: [
+                          { value: 'yes', label: 'Yes' },
+                          { value: 'no', label: 'No' },
+                          { value: 'conditional', label: 'Conditional' }
+                        ]
+                      }
                     ]
                   },
                   {
@@ -1944,18 +1956,22 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                     label: 'Aquatic Toxicity',
                     type: 'table',
                     columns: [
-                      { key: 'species', label: 'Species', type: 'select', options: [
-                        { value: 'daphnia', label: 'Daphnia magna' },
-                        { value: 'fish', label: 'Fish (various species)' },
-                        { value: 'algae', label: 'Algae' },
-                        { value: 'bacteria', label: 'Bacteria' }
-                      ]},
-                      { key: 'endpoint', label: 'Endpoint', type: 'select', options: [
-                        { value: 'lc50', label: 'LC50' },
-                        { value: 'ec50', label: 'EC50' },
-                        { value: 'noec', label: 'NOEC' },
-                        { value: 'loec', label: 'LOEC' }
-                      ]},
+                      {
+                        key: 'species', label: 'Species', type: 'select', options: [
+                          { value: 'daphnia', label: 'Daphnia magna' },
+                          { value: 'fish', label: 'Fish (various species)' },
+                          { value: 'algae', label: 'Algae' },
+                          { value: 'bacteria', label: 'Bacteria' }
+                        ]
+                      },
+                      {
+                        key: 'endpoint', label: 'Endpoint', type: 'select', options: [
+                          { value: 'lc50', label: 'LC50' },
+                          { value: 'ec50', label: 'EC50' },
+                          { value: 'noec', label: 'NOEC' },
+                          { value: 'loec', label: 'LOEC' }
+                        ]
+                      },
                       { key: 'value', label: 'Value (mg/L)', type: 'text' },
                       { key: 'duration', label: 'Duration', type: 'text' },
                       { key: 'notes', label: 'Notes', type: 'text' }
@@ -2880,13 +2896,15 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                       { key: 'percentage', label: 'Percentage (%)', type: 'number', required: true },
                       { key: 'weight', label: 'Weight (ml)', type: 'number' },
                       { key: 'adjustedWeight', label: 'Adjusted Weight (ml)', type: 'number' },
-                      { key: 'function', label: 'Function', type: 'select', required: true, options: [
-                        { value: 'top_note', label: 'Top Note' },
-                        { value: 'middle_note', label: 'Middle Note' },
-                        { value: 'base_note', label: 'Base Note' },
-                        { value: 'modifier', label: 'Modifier' },
-                        { value: 'fixative', label: 'Fixative' }
-                      ]},
+                      {
+                        key: 'function', label: 'Function', type: 'select', required: true, options: [
+                          { value: 'top_note', label: 'Top Note' },
+                          { value: 'middle_note', label: 'Middle Note' },
+                          { value: 'base_note', label: 'Base Note' },
+                          { value: 'modifier', label: 'Modifier' },
+                          { value: 'fixative', label: 'Fixative' }
+                        ]
+                      },
                       { key: 'supplier', label: 'Supplier', type: 'text' },
                       { key: 'costPerMl', label: 'Cost/ml', type: 'number' }
                     ]
@@ -3338,13 +3356,15 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                     columns: [
                       { key: 'ingredientCode', label: 'Ingredient Code', type: 'text', required: true },
                       { key: 'ingredientName', label: 'Ingredient Name', type: 'text', required: true },
-                      { key: 'category', label: 'Category', type: 'select', required: true, options: [
-                        { value: 'top_note', label: 'Top Note' },
-                        { value: 'middle_note', label: 'Middle Note' },
-                        { value: 'base_note', label: 'Base Note' },
-                        { value: 'modifier', label: 'Modifier' },
-                        { value: 'accent', label: 'Accent' }
-                      ]},
+                      {
+                        key: 'category', label: 'Category', type: 'select', required: true, options: [
+                          { value: 'top_note', label: 'Top Note' },
+                          { value: 'middle_note', label: 'Middle Note' },
+                          { value: 'base_note', label: 'Base Note' },
+                          { value: 'modifier', label: 'Modifier' },
+                          { value: 'accent', label: 'Accent' }
+                        ]
+                      },
                       { key: 'paletteRole', label: 'Palette Role', type: 'text' },
                       { key: 'notes', label: 'Curator Notes', type: 'text' }
                     ]
@@ -3644,19 +3664,23 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                       { key: 'description', label: 'Description', type: 'text' },
                       { key: 'startDate', label: 'Start Date', type: 'date', required: true },
                       { key: 'endDate', label: 'End Date', type: 'date', required: true },
-                      { key: 'owner', label: 'Phase Owner', type: 'select', required: true, options: [
-                        { value: 'sarah_johnson', label: 'Sarah Johnson' },
-                        { value: 'alice_martin', label: 'Alice Martin' },
-                        { value: 'daniel_brown', label: 'Daniel Brown' },
-                        { value: 'emma_davis', label: 'Emma Davis' }
-                      ]},
-                      { key: 'status', label: 'Status', type: 'select', required: true, options: [
-                        { value: 'not_started', label: 'Not Started' },
-                        { value: 'in_progress', label: 'In Progress' },
-                        { value: 'completed', label: 'Completed' },
-                        { value: 'on_hold', label: 'On Hold' },
-                        { value: 'cancelled', label: 'Cancelled' }
-                      ]}
+                      {
+                        key: 'owner', label: 'Phase Owner', type: 'select', required: true, options: [
+                          { value: 'sarah_johnson', label: 'Sarah Johnson' },
+                          { value: 'alice_martin', label: 'Alice Martin' },
+                          { value: 'daniel_brown', label: 'Daniel Brown' },
+                          { value: 'emma_davis', label: 'Emma Davis' }
+                        ]
+                      },
+                      {
+                        key: 'status', label: 'Status', type: 'select', required: true, options: [
+                          { value: 'not_started', label: 'Not Started' },
+                          { value: 'in_progress', label: 'In Progress' },
+                          { value: 'completed', label: 'Completed' },
+                          { value: 'on_hold', label: 'On Hold' },
+                          { value: 'cancelled', label: 'Cancelled' }
+                        ]
+                      }
                     ],
                     helpText: 'Define the major phases of your project'
                   },
@@ -3668,27 +3692,33 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                       { key: 'milestoneName', label: 'Milestone Name', type: 'text', required: true },
                       { key: 'description', label: 'Description', type: 'text' },
                       { key: 'dueDate', label: 'Due Date', type: 'date', required: true },
-                      { key: 'priority', label: 'Priority', type: 'select', required: true, options: [
-                        { value: 'low', label: 'Low' },
-                        { value: 'medium', label: 'Medium' },
-                        { value: 'high', label: 'High' },
-                        { value: 'critical', label: 'Critical' }
-                      ]},
-                      { key: 'assignee', label: 'Assignee', type: 'select', required: true, options: [
-                        { value: 'sarah_johnson', label: 'Sarah Johnson' },
-                        { value: 'alice_martin', label: 'Alice Martin' },
-                        { value: 'bob_wilson', label: 'Bob Wilson' },
-                        { value: 'carol_smith', label: 'Carol Smith' },
-                        { value: 'daniel_brown', label: 'Daniel Brown' },
-                        { value: 'emma_davis', label: 'Emma Davis' }
-                      ]},
-                      { key: 'status', label: 'Status', type: 'select', required: true, options: [
-                        { value: 'pending', label: 'Pending' },
-                        { value: 'in_progress', label: 'In Progress' },
-                        { value: 'completed', label: 'Completed' },
-                        { value: 'overdue', label: 'Overdue' },
-                        { value: 'cancelled', label: 'Cancelled' }
-                      ]},
+                      {
+                        key: 'priority', label: 'Priority', type: 'select', required: true, options: [
+                          { value: 'low', label: 'Low' },
+                          { value: 'medium', label: 'Medium' },
+                          { value: 'high', label: 'High' },
+                          { value: 'critical', label: 'Critical' }
+                        ]
+                      },
+                      {
+                        key: 'assignee', label: 'Assignee', type: 'select', required: true, options: [
+                          { value: 'sarah_johnson', label: 'Sarah Johnson' },
+                          { value: 'alice_martin', label: 'Alice Martin' },
+                          { value: 'bob_wilson', label: 'Bob Wilson' },
+                          { value: 'carol_smith', label: 'Carol Smith' },
+                          { value: 'daniel_brown', label: 'Daniel Brown' },
+                          { value: 'emma_davis', label: 'Emma Davis' }
+                        ]
+                      },
+                      {
+                        key: 'status', label: 'Status', type: 'select', required: true, options: [
+                          { value: 'pending', label: 'Pending' },
+                          { value: 'in_progress', label: 'In Progress' },
+                          { value: 'completed', label: 'Completed' },
+                          { value: 'overdue', label: 'Overdue' },
+                          { value: 'cancelled', label: 'Cancelled' }
+                        ]
+                      },
                       { key: 'completionPercentage', label: 'Progress (%)', type: 'number', validation: { min: 0, max: 100 } }
                     ],
                     helpText: 'Define specific milestones and deliverables'
@@ -3802,43 +3832,53 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                     label: 'Linked Formulas',
                     type: 'table',
                     columns: [
-                      { key: 'formulaId', label: 'Formula ID', type: 'select', required: true, options: [
-                        { value: 'FORM-001', label: 'FORM-001 - Summer Breeze EDP' },
-                        { value: 'FORM-002', label: 'FORM-002 - Midnight Rose EDT' },
-                        { value: 'FORM-003', label: 'FORM-003 - Citrus Fresh Cologne' },
-                        { value: 'FORM-004', label: 'FORM-004 - Woody Amber Parfum' },
-                        { value: 'FORM-005', label: 'FORM-005 - Ocean Mist EDT' },
-                        { value: 'FORM-006', label: 'FORM-006 - Vanilla Dreams EDP' },
-                        { value: 'FORM-007', label: 'FORM-007 - Spice Market Parfum' },
-                        { value: 'FORM-008', label: 'FORM-008 - Garden Fresh Cologne' }
-                      ]},
+                      {
+                        key: 'formulaId', label: 'Formula ID', type: 'select', required: true, options: [
+                          { value: 'FORM-001', label: 'FORM-001 - Summer Breeze EDP' },
+                          { value: 'FORM-002', label: 'FORM-002 - Midnight Rose EDT' },
+                          { value: 'FORM-003', label: 'FORM-003 - Citrus Fresh Cologne' },
+                          { value: 'FORM-004', label: 'FORM-004 - Woody Amber Parfum' },
+                          { value: 'FORM-005', label: 'FORM-005 - Ocean Mist EDT' },
+                          { value: 'FORM-006', label: 'FORM-006 - Vanilla Dreams EDP' },
+                          { value: 'FORM-007', label: 'FORM-007 - Spice Market Parfum' },
+                          { value: 'FORM-008', label: 'FORM-008 - Garden Fresh Cologne' }
+                        ]
+                      },
                       { key: 'formulaName', label: 'Formula Name', type: 'text', disabled: true },
-                      { key: 'relationshipType', label: 'Relationship', type: 'select', required: true, options: [
-                        { value: 'primary_formula', label: 'Primary Formula' },
-                        { value: 'variant', label: 'Variant/Modification' },
-                        { value: 'reference', label: 'Reference Formula' },
-                        { value: 'inspiration', label: 'Inspiration Source' },
-                        { value: 'component', label: 'Component Formula' }
-                      ]},
-                      { key: 'status', label: 'Status', type: 'select', required: true, options: [
-                        { value: 'active', label: 'Active' },
-                        { value: 'development', label: 'In Development' },
-                        { value: 'testing', label: 'Testing Phase' },
-                        { value: 'approved', label: 'Approved' },
-                        { value: 'archived', label: 'Archived' }
-                      ]},
-                      { key: 'priority', label: 'Priority', type: 'select', required: true, options: [
-                        { value: 'low', label: 'Low' },
-                        { value: 'medium', label: 'Medium' },
-                        { value: 'high', label: 'High' },
-                        { value: 'critical', label: 'Critical' }
-                      ]},
-                      { key: 'assignedTo', label: 'Assigned To', type: 'select', options: [
-                        { value: 'alice_martin', label: 'Alice Martin' },
-                        { value: 'bob_wilson', label: 'Bob Wilson' },
-                        { value: 'grace_lee', label: 'Grace Lee' },
-                        { value: 'daniel_brown', label: 'Daniel Brown' }
-                      ]},
+                      {
+                        key: 'relationshipType', label: 'Relationship', type: 'select', required: true, options: [
+                          { value: 'primary_formula', label: 'Primary Formula' },
+                          { value: 'variant', label: 'Variant/Modification' },
+                          { value: 'reference', label: 'Reference Formula' },
+                          { value: 'inspiration', label: 'Inspiration Source' },
+                          { value: 'component', label: 'Component Formula' }
+                        ]
+                      },
+                      {
+                        key: 'status', label: 'Status', type: 'select', required: true, options: [
+                          { value: 'active', label: 'Active' },
+                          { value: 'development', label: 'In Development' },
+                          { value: 'testing', label: 'Testing Phase' },
+                          { value: 'approved', label: 'Approved' },
+                          { value: 'archived', label: 'Archived' }
+                        ]
+                      },
+                      {
+                        key: 'priority', label: 'Priority', type: 'select', required: true, options: [
+                          { value: 'low', label: 'Low' },
+                          { value: 'medium', label: 'Medium' },
+                          { value: 'high', label: 'High' },
+                          { value: 'critical', label: 'Critical' }
+                        ]
+                      },
+                      {
+                        key: 'assignedTo', label: 'Assigned To', type: 'select', options: [
+                          { value: 'alice_martin', label: 'Alice Martin' },
+                          { value: 'bob_wilson', label: 'Bob Wilson' },
+                          { value: 'grace_lee', label: 'Grace Lee' },
+                          { value: 'daniel_brown', label: 'Daniel Brown' }
+                        ]
+                      },
                       { key: 'notes', label: 'Notes', type: 'text' }
                     ],
                     helpText: 'Link existing formulas to this project'
@@ -4026,25 +4066,31 @@ const CASE_TEMPLATES: Record<string, CaseTemplate> = {
                     label: 'Risk Assessment',
                     type: 'table',
                     columns: [
-                      { key: 'riskCategory', label: 'Risk Category', type: 'select', required: true, options: [
-                        { value: 'technical', label: 'Technical Risk' },
-                        { value: 'timeline', label: 'Timeline Risk' },
-                        { value: 'budget', label: 'Budget Risk' },
-                        { value: 'regulatory', label: 'Regulatory Risk' },
-                        { value: 'market', label: 'Market Risk' },
-                        { value: 'resource', label: 'Resource Risk' }
-                      ]},
+                      {
+                        key: 'riskCategory', label: 'Risk Category', type: 'select', required: true, options: [
+                          { value: 'technical', label: 'Technical Risk' },
+                          { value: 'timeline', label: 'Timeline Risk' },
+                          { value: 'budget', label: 'Budget Risk' },
+                          { value: 'regulatory', label: 'Regulatory Risk' },
+                          { value: 'market', label: 'Market Risk' },
+                          { value: 'resource', label: 'Resource Risk' }
+                        ]
+                      },
                       { key: 'description', label: 'Risk Description', type: 'text', required: true },
-                      { key: 'probability', label: 'Probability', type: 'select', required: true, options: [
-                        { value: 'low', label: 'Low' },
-                        { value: 'medium', label: 'Medium' },
-                        { value: 'high', label: 'High' }
-                      ]},
-                      { key: 'impact', label: 'Impact', type: 'select', required: true, options: [
-                        { value: 'low', label: 'Low' },
-                        { value: 'medium', label: 'Medium' },
-                        { value: 'high', label: 'High' }
-                      ]},
+                      {
+                        key: 'probability', label: 'Probability', type: 'select', required: true, options: [
+                          { value: 'low', label: 'Low' },
+                          { value: 'medium', label: 'Medium' },
+                          { value: 'high', label: 'High' }
+                        ]
+                      },
+                      {
+                        key: 'impact', label: 'Impact', type: 'select', required: true, options: [
+                          { value: 'low', label: 'Low' },
+                          { value: 'medium', label: 'Medium' },
+                          { value: 'high', label: 'High' }
+                        ]
+                      },
                       { key: 'mitigation', label: 'Mitigation Strategy', type: 'text' }
                     ],
                     helpText: 'Identify and assess project risks'
@@ -4148,7 +4194,7 @@ export function getAllTemplates(): CaseTemplate[] {
 }
 
 export function getTemplatesByCategory(category: string): CaseTemplate[] {
-  return getAllTemplates().filter(template => 
+  return getAllTemplates().filter(template =>
     template.metadata?.category === category ||
     template.metadata?.tags?.includes(category)
   );

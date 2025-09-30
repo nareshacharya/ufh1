@@ -60,6 +60,13 @@ export function useAuth(): UseAuthReturn {
           isSharedLink: false
         };
         
+        // Store user details in session storage for retrieval by getCurrentUserRole()
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('user_role', mockUser.role);
+          sessionStorage.setItem('user_name', mockUser.name);
+          sessionStorage.setItem('user_email', mockUser.email);
+        }
+        
         setUser(mockUser);
       } else {
         throw new Error('Invalid credentials. Use admin@perfumery.com / password123');

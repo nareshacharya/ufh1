@@ -3,13 +3,13 @@ import { z } from 'zod';
 
 export type ViewMode = 'create' | 'view' | 'edit';
 
-export type FieldType = 
-  | 'text' 
-  | 'number' 
-  | 'select' 
-  | 'multiselect' 
-  | 'richtext' 
-  | 'attachment' 
+export type FieldType =
+  | 'text'
+  | 'number'
+  | 'select'
+  | 'multiselect'
+  | 'richtext'
+  | 'attachment'
   | 'table'
   | 'date'
   | 'boolean'
@@ -352,10 +352,10 @@ export interface TemplateValidationResult {
 // Utility functions
 export function isFieldVisible(field: Field, data: CaseData): boolean {
   if (!field.conditional) return true;
-  
+
   const { field: conditionField, value: conditionValue, operator = 'equals' } = field.conditional;
   const fieldValue = data[conditionField];
-  
+
   switch (operator) {
     case 'equals':
       return fieldValue === conditionValue;
@@ -374,10 +374,10 @@ export function isFieldVisible(field: Field, data: CaseData): boolean {
 
 export function isStepVisible(step: Step, data: CaseData): boolean {
   if (!step.conditional) return true;
-  
+
   const { field: conditionField, value: conditionValue, operator = 'equals' } = step.conditional;
   const fieldValue = data[conditionField];
-  
+
   switch (operator) {
     case 'equals':
       return fieldValue === conditionValue;
@@ -415,37 +415,37 @@ export function validateField(field: Field, value: any): string | null {
   if (field.required && (value === undefined || value === null || value === '')) {
     return `${field.label} is required`;
   }
-  
+
   if (field.validation && value) {
     const { min, max, pattern, message } = field.validation;
-    
+
     if (min !== undefined && typeof value === 'number' && value < min) {
       return message || `${field.label} must be at least ${min}`;
     }
-    
+
     if (max !== undefined && typeof value === 'number' && value > max) {
       return message || `${field.label} must be at most ${max}`;
     }
-    
+
     if (min !== undefined && typeof value === 'string' && value.length < min) {
       return message || `${field.label} must be at least ${min} characters`;
     }
-    
+
     if (max !== undefined && typeof value === 'string' && value.length > max) {
       return message || `${field.label} must be at most ${max} characters`;
     }
-    
+
     if (pattern && typeof value === 'string' && !new RegExp(pattern).test(value)) {
       return message || `${field.label} format is invalid`;
     }
   }
-  
+
   return null;
 }
 
 export function validateStep(step: Step, data: CaseData): Record<string, string> {
   const errors: Record<string, string> = {};
-  
+
   if (step.validation?.required) {
     for (const fieldId of step.validation.required) {
       if (!data[fieldId] || data[fieldId] === '') {
@@ -456,7 +456,7 @@ export function validateStep(step: Step, data: CaseData): Record<string, string>
       }
     }
   }
-  
+
   // Validate all visible fields in resolved fieldSets
   const allFields = getStepFields(step);
   for (const field of allFields) {
@@ -467,14 +467,14 @@ export function validateStep(step: Step, data: CaseData): Record<string, string>
       }
     }
   }
-  
+
   if (step.validation?.custom) {
     const customError = step.validation.custom(data);
     if (customError) {
       errors._step = customError;
     }
   }
-  
+
   return errors;
 }
 
@@ -489,7 +489,7 @@ export function getStepFields(step: Step): Field[] {
 export function applyFieldOverrides(field: Field, overrides: FieldOverride[]): Field {
   const override = overrides.find(o => o.fieldId === field.id);
   if (!override) return field;
-  
+
   return {
     ...field,
     ...(override.label && { label: override.label }),
@@ -510,7 +510,7 @@ export function mapActionPayload(action: Action, caseData: CaseData): Record<str
   }
 
   const payload: Record<string, any> = {};
-  
+
   for (const [templateFieldId, dxFieldId] of Object.entries(action.payloadMap)) {
     if (caseData[templateFieldId] !== undefined) {
       payload[dxFieldId] = caseData[templateFieldId];

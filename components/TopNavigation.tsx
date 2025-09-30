@@ -283,6 +283,20 @@ export function TopNavigation() {
 
             {/* Centered Navigation */}
             <nav className="flex items-center gap-1">
+                <Link 
+                  href="/"
+                  className={`elegant-nav-item flex items-center gap-2 px-4 py-2 transition-all duration-200 whitespace-nowrap ${
+                    pathname === '/' 
+                      ? 'text-primary border-b-2 border-primary bg-transparent' 
+                      : 'hover:bg-shade-100 text-rgb-fg-secondary'
+                  }`}
+                >
+                  <div className="w-4 h-4 flex items-center justify-center">
+                    <i className="ri-home-line text-base"></i>
+                  </div>
+                  <span className="font-medium">Home</span>
+                </Link>
+
                 <div className="relative z-40" ref={createDropdownRef}>
                   <button
                     onClick={() => setIsCreateDropdownOpen(!isCreateDropdownOpen)}
