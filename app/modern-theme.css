@@ -80,84 +80,84 @@
   --shade-900: 251, 245, 255;
 }
 
-[data-theme="blue"] {
-  /* Ocean Blue Theme */
-  --bg-primary: 248, 250, 252;
-  --bg-secondary: 240, 249, 255;
-  --bg-tertiary: 224, 242, 254;
-  --bg-quaternary: 186, 230, 253;
+[data-theme="light-warm"] {
+  /* Warm Light Theme - Cream and Warm Tones */
+  --bg-primary: 254, 252, 245;
+  --bg-secondary: 255, 248, 220;
+  --bg-tertiary: 254, 240, 138;
+  --bg-quaternary: 253, 230, 138;
 
-  --fg-primary: 12, 74, 110;
-  --fg-secondary: 14, 116, 144;
-  --fg-tertiary: 22, 163, 174;
-  --fg-quaternary: 75, 181, 192;
+  --fg-primary: 120, 53, 15;
+  --fg-secondary: 154, 52, 18;
+  --fg-tertiary: 194, 65, 12;
+  --fg-quaternary: 234, 88, 12;
 
-  --border-primary: 186, 230, 253;
-  --border-secondary: 125, 211, 252;
-  --border-accent: 2, 132, 199;
+  --border-primary: 253, 230, 138;
+  --border-secondary: 252, 211, 77;
+  --border-accent: 245, 158, 11;
 
-  /* Primary and Accent Colors - Blue Theme */
-  --primary: 2, 132, 199;
-  --primary-dark: 3, 105, 161;
-  --primary-light: 125, 211, 252;
+  /* Primary and Accent Colors - Warm Theme */
+  --primary: 245, 158, 11;
+  --primary-dark: 217, 119, 6;
+  --primary-light: 252, 211, 77;
   --accent-1: 16, 185, 129;
   --accent-button: 245, 158, 11;
   --success: 34, 197, 94;
   --warning: 251, 191, 36;
   --error: 239, 68, 68;
-  --info: 2, 132, 199;
+  --info: 245, 158, 11;
 
-  /* Enhanced shade variations for blue theme */
-  --shade-50: 240, 249, 255;
-  --shade-100: 224, 242, 254;
-  --shade-200: 186, 230, 253;
-  --shade-300: 125, 211, 252;
-  --shade-400: 56, 189, 248;
-  --shade-500: 14, 165, 233;
-  --shade-600: 2, 132, 199;
-  --shade-700: 3, 105, 161;
-  --shade-800: 7, 89, 133;
-  --shade-900: 12, 74, 110;
+  /* Enhanced shade variations for warm theme */
+  --shade-50: 255, 251, 235;
+  --shade-100: 254, 243, 199;
+  --shade-200: 253, 230, 138;
+  --shade-300: 252, 211, 77;
+  --shade-400: 251, 191, 36;
+  --shade-500: 245, 158, 11;
+  --shade-600: 217, 119, 6;
+  --shade-700: 180, 83, 9;
+  --shade-800: 146, 64, 14;
+  --shade-900: 120, 53, 15;
 }
 
-[data-theme="green"] {
-  /* Nature Green Theme */
-  --bg-primary: 247, 254, 231;
-  --bg-secondary: 236, 252, 203;
-  --bg-tertiary: 220, 252, 231;
-  --bg-quaternary: 187, 247, 208;
+[data-theme="dark-cool"] {
+  /* Cool Dark Theme - Blue-Grey Tones */
+  --bg-primary: 8, 14, 25;
+  --bg-secondary: 15, 23, 42;
+  --bg-tertiary: 30, 41, 59;
+  --bg-quaternary: 51, 65, 85;
 
-  --fg-primary: 20, 83, 45;
-  --fg-secondary: 22, 101, 52;
-  --fg-tertiary: 34, 197, 94;
-  --fg-quaternary: 74, 222, 128;
+  --fg-primary: 226, 232, 240;
+  --fg-secondary: 148, 163, 184;
+  --fg-tertiary: 100, 116, 139;
+  --fg-quaternary: 71, 85, 105;
 
-  --border-primary: 187, 247, 208;
-  --border-secondary: 134, 239, 172;
-  --border-accent: 34, 197, 94;
+  --border-primary: 51, 65, 85;
+  --border-secondary: 71, 85, 105;
+  --border-accent: 59, 130, 246;
 
-  /* Primary and Accent Colors - Green Theme */
-  --primary: 34, 197, 94;
-  --primary-dark: 22, 163, 74;
-  --primary-light: 134, 239, 172;
-  --accent-1: 16, 185, 129;
-  --accent-button: 245, 158, 11;
+  /* Primary and Accent Colors - Cool Dark Theme */
+  --primary: 59, 130, 246;
+  --primary-dark: 37, 99, 235;
+  --primary-light: 147, 197, 253;
+  --accent-1: 34, 211, 238;
+  --accent-button: 14, 165, 233;
   --success: 34, 197, 94;
   --warning: 251, 191, 36;
-  --error: 239, 68, 68;
-  --info: 34, 197, 94;
+  --error: 248, 113, 113;
+  --info: 59, 130, 246;
 
-  /* Enhanced shade variations for green theme */
-  --shade-50: 240, 253, 244;
-  --shade-100: 220, 252, 231;
-  --shade-200: 187, 247, 208;
-  --shade-300: 134, 239, 172;
-  --shade-400: 74, 222, 128;
-  --shade-500: 34, 197, 94;
-  --shade-600: 22, 163, 74;
-  --shade-700: 21, 128, 61;
-  --shade-800: 22, 101, 52;
-  --shade-900: 20, 83, 45;
+  /* Enhanced shade variations for cool dark theme */
+  --shade-50: 8, 14, 25;
+  --shade-100: 15, 23, 42;
+  --shade-200: 30, 41, 59;
+  --shade-300: 51, 65, 85;
+  --shade-400: 71, 85, 105;
+  --shade-500: 100, 116, 139;
+  --shade-600: 148, 163, 184;
+  --shade-700: 203, 213, 225;
+  --shade-800: 226, 232, 240;
+  --shade-900: 241, 245, 249;
 }
 
 /* Tailwind Utilities - Essential Classes */
@@ -1621,6 +1621,62 @@ select:focus {
   color: white !important;
 }
 
+/* Theme Selection Cards */
+.theme-card {
+  background: rgb(var(--bg-secondary));
+  border: 2px solid rgb(var(--border-primary));
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-card:hover {
+  border-color: rgb(var(--border-accent));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--primary), 0.15);
+}
+
+.theme-card.selected {
+  border-color: rgb(var(--primary));
+  background: rgb(var(--bg-tertiary));
+  box-shadow: 0 8px 25px rgba(var(--primary), 0.2);
+}
+
+.theme-preview {
+  margin-bottom: 16px;
+}
+
+.theme-mockup {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--border-primary), 0.5);
+}
+
+.mockup-header {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+.mockup-content {
+  padding: 12px;
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.theme-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.theme-info p {
+  line-height: 1.4;
+}
+
 .mobile-nav-sub-item {
   position: relative;
   display: flex;
@@ -1704,5 +1760,375 @@ select:focus {
 
   .lg\\:hidden {
     display: block !important;
+  }
+}
+
+/* Enhanced Profile Card Styles */
+.profile-card {
+  position: relative;
+  min-height: 300px;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--primary)) 0%,
+    rgb(var(--accent-1)) 50%,
+    rgb(147, 51, 234) 100%
+  );
+  border: none !important;
+  box-shadow: 0 20px 40px rgba(var(--primary), 0.15),
+    0 8px 16px rgba(var(--primary), 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px rgba(var(--primary), 0.2),
+    0 12px 20px rgba(var(--primary), 0.12) !important;
+}
+
+.profile-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.profile-card:hover::before {
+  transform: translateX(100%);
+}
+
+/* Profile Card Avatar Styles */
+.profile-card .w-32 {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.profile-card .w-32:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* Enhanced Stats Cards */
+.modern-card:has(.ri-file-text-line),
+.modern-card:has(.ri-test-tube-line),
+.modern-card:has(.ri-folder-line),
+.modern-card:has(.ri-team-line) {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-card:has(.ri-file-text-line):hover,
+.modern-card:has(.ri-test-tube-line):hover,
+.modern-card:has(.ri-folder-line):hover,
+.modern-card:has(.ri-team-line):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(var(--primary), 0.12);
+}
+
+.modern-card:has(.ri-file-text-line)::before,
+.modern-card:has(.ri-test-tube-line)::before,
+.modern-card:has(.ri-folder-line)::before,
+.modern-card:has(.ri-team-line)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgb(var(--primary)), rgb(var(--accent-1)));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.modern-card:has(.ri-file-text-line):hover::before,
+.modern-card:has(.ri-test-tube-line):hover::before,
+.modern-card:has(.ri-folder-line):hover::before,
+.modern-card:has(.ri-team-line):hover::before {
+  transform: scaleX(1);
+}
+
+/* Responsive Profile Card */
+@media (max-width: 1024px) {
+  .profile-card {
+    min-height: auto;
+  }
+
+  .profile-card .flex-col {
+    text-align: center;
+  }
+
+  .profile-card .w-32 {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-card {
+    margin: -0.5rem -1rem 1.5rem -1rem;
+    border-radius: 0 0 1rem 1rem !important;
+  }
+
+  .profile-card .p-8 {
+    padding: 1.5rem !important;
+  }
+
+  .profile-card .text-3xl {
+    font-size: 1.875rem !important;
+  }
+
+  .profile-card .text-xl {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* Badge animations */
+.profile-card span[class*="bg-white/20"] {
+  transition: all 0.2s ease;
+}
+
+.profile-card span[class*="bg-white/20"]:hover {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-1px);
+}
+
+/* Social link hover effects */
+.profile-card a[class*="bg-white/20"] {
+  transition: all 0.2s ease;
+}
+
+.profile-card a[class*="bg-white/20"]:hover {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+/* Clean Profile Card Styles */
+.profile-card-clean {
+  position: relative;
+  background: rgb(var(--bg-primary));
+  border: 1px solid rgb(var(--border-primary)) !important;
+  box-shadow: 0 4px 12px rgba(var(--primary), 0.08),
+    0 2px 4px rgba(var(--primary), 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-card-clean:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(var(--primary), 0.12),
+    0 4px 8px rgba(var(--primary), 0.06) !important;
+}
+
+/* Ring utility classes */
+.ring-primary-light {
+  --tw-ring-color: rgb(var(--primary-light)) !important;
+}
+
+/* Icon centering fixes - Ensure all icons are properly centered */
+i[class*="ri-"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+/* Fix for social icons in profile card */
+.profile-card-clean a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.profile-card-clean a i {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Full width layout adjustments */
+.profile-card-clean {
+  min-height: calc(100vh - 12rem);
+}
+
+/* Redesigned Profile Card */
+.profile-card-redesigned {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--bg-primary), 1) 0%,
+    rgba(var(--bg-secondary), 0.95) 100%
+  );
+  border: 1px solid rgba(var(--border-primary), 0.15);
+  box-shadow: 0 20px 60px rgba(var(--shadow-primary), 0.15),
+    0 0 0 1px rgba(var(--border-primary), 0.08);
+  backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card-redesigned::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--primary)),
+    rgb(var(--accent-1)),
+    rgb(var(--accent-2))
+  );
+  opacity: 0.7;
+}
+
+.profile-card-redesigned:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 80px rgba(var(--shadow-primary), 0.25),
+    0 0 0 1px rgba(var(--border-primary), 0.15);
+}
+
+/* Stat Card Redesigned */
+.stat-card-redesigned {
+  background: rgba(var(--bg-primary), 0.8);
+  border: 1px solid rgba(var(--border-primary), 0.1);
+  box-shadow: 0 8px 24px rgba(var(--shadow-primary), 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card-redesigned::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--primary)),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.stat-card-redesigned:hover::before {
+  transform: translateX(100%);
+}
+
+.stat-card-redesigned:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(var(--shadow-primary), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(var(--primary), 0.2);
+}
+
+/* Force side-by-side layout on large screens */
+@media (min-width: 1024px) {
+  .lg\:flex-row {
+    flex-direction: row !important;
+  }
+
+  .lg\:w-3\/4 {
+    width: 75% !important;
+    flex-shrink: 0;
+  }
+
+  .lg\:w-1\/4 {
+    width: 25% !important;
+    flex-shrink: 0;
+  }
+}
+
+/* Extra large screens - 70/30 split */
+@media (min-width: 1280px) {
+  .xl\:flex-row {
+    flex-direction: row !important;
+  }
+
+  .xl\:w-7\/10 {
+    width: 70% !important;
+    flex-shrink: 0;
+  }
+
+  .xl\:w-3\/10 {
+    width: 30% !important;
+    flex-shrink: 0;
+  }
+
+  .lg\:flex-col {
+    flex-direction: column !important;
+  }
+}
+
+/* Responsive adjustments for clean profile card */
+@media (max-width: 1024px) {
+  .profile-card-clean {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .profile-card-clean .flex-col {
+    text-align: center;
+  }
+
+  .profile-card-clean .w-32 {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-card-clean {
+    border-radius: 0.5rem !important;
+  }
+
+  .profile-card-clean .p-8 {
+    padding: 1.5rem !important;
+  }
+
+  .profile-card-clean .text-3xl {
+    font-size: 1.875rem !important;
+  }
+
+  .profile-card-clean .text-xl {
+    font-size: 1.125rem !important;
+  }
+
+  .profile-card-clean .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Stats section responsive behavior */
+@media (max-width: 1024px) {
+  .lg\:w-1\/4 {
+    width: 100% !important;
+  }
+
+  .lg\:w-3\/4 {
+    width: 100% !important;
+  }
+
+  .lg\:flex-col {
+    flex-direction: row !important;
+  }
+
+  .lg\:flex-row {
+    flex-direction: column !important;
   }
 }

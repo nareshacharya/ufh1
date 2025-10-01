@@ -1,51 +1,91 @@
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import { Breadcrumb } from '@/components/Breadcrumb';
+import { useState, useRef, useEffect } from "react";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { UserAvatarWithFallback } from "@/components/UserAvatar";
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState('personal');
+  const [activeTab, setActiveTab] = useState("overview");
   const [isEditing, setIsEditing] = useState(false);
+  const [showAvatarSelector, setShowAvatarSelector] = useState(false);
+  const [selectedAvatarSeed, setSelectedAvatarSeed] = useState(
+    "john.smith@foodinnovation.com"
+  );
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Load saved avatar from localStorage on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedSeed = localStorage.getItem("userAvatarSeed");
+      if (savedSeed) {
+        setSelectedAvatarSeed(savedSeed);
+      }
+    }
+  }, []);
 
   const breadcrumbItems = [
-    { label: 'Home', href: '/', icon: 'ri-home-line' },
-    { label: 'Profile', icon: 'ri-user-line' }
+    { label: "Home", href: "/", icon: "ri-home-line" },
+    { label: "Profile", icon: "ri-user-line" },
   ];
 
   const user = {
-    name: 'John Doe',
-    email: 'john.doe@perfumery.com',
-    role: 'Senior Perfumer',
-    department: 'Fragrance Development',
-    joinDate: '2022-03-15',
-    location: 'New York, NY',
-    phone: '+1 (555) 123-4567',
-    bio: 'Passionate perfumer with over 10 years of experience in creating luxury fragrances. Specialized in floral and oriental compositions.',
-    avatar: null
+    name: "John Smith",
+    email: "john.smith@foodinnovation.com",
+    role: "Senior Product Manager",
+    department: "R&D Food Innovation",
+    joinDate: "2022-03-15",
+    location: "New York, USA",
+    phone: "+1 (555) 123-4567",
+    bio: "Passionate product manager with over 8 years of experience in food innovation and sustainable development. Leading cross-functional teams to deliver exceptional product experiences.",
+    avatar: null,
+    timezone: "UTC-08:00 - Pacific Standard Time (PST)",
+    dateOfBirth: "",
+    language: "English",
+    gender: "",
+    address:
+      "92 Miles Drive, Newark, NJ 07103, California, United States of America",
+    socialLinks: {
+      linkedin: "john-smith",
+      twitter: "@johnsmith_food",
+    },
+    skills: ["React", "TypeScript", "Product Management", "Food Science"],
   };
 
-  const stats = [
-    { label: 'Formulas Created', value: 42, icon: 'ri-test-tube-line', color: 'bg-primary' },
-    { label: 'Projects Completed', value: 18, icon: 'ri-folder-line', color: 'bg-accent-1' },
-    { label: 'Ingredients Used', value: 156, icon: 'ri-flask-line', color: 'bg-accent-2' },
-    { label: 'Years Experience', value: 10, icon: 'ri-time-line', color: 'bg-amber-500' }
+  const tabs = [
+    { id: "overview", label: "Overview", icon: "ri-user-line" },
+    { id: "personal", label: "Personal Info", icon: "ri-profile-line" },
+    { id: "security", label: "Security", icon: "ri-shield-line" },
+    { id: "preferences", label: "Preferences", icon: "ri-settings-line" },
+    { id: "activity", label: "Activity", icon: "ri-history-line" },
   ];
 
-  const recentActivity = [
-    { id: 1, action: 'Created formula "Summer Breeze"', date: '2024-01-15', type: 'create' },
-    { id: 2, action: 'Updated project "Luxury Spring Collection"', date: '2024-01-14', type: 'update' },
-    { id: 3, action: 'Completed compliance check for "Ocean Mist"', date: '2024-01-13', type: 'complete' },
-    { id: 4, action: 'Added new ingredient "Bulgarian Rose"', date: '2024-01-12', type: 'add' }
+  const avatarOptions = [
+    "john.smith@foodinnovation.com",
+    "avatar1",
+    "avatar2",
+    "avatar3",
+    "professional",
+    "creative",
+    "technical",
+    "manager",
   ];
 
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case 'create': return 'ri-add-circle-line';
-      case 'update': return 'ri-edit-line';
-      case 'complete': return 'ri-check-line';
-      case 'add': return 'ri-flask-line';
-      default: return 'ri-information-line';
+  const handleAvatarSelect = (seed: string) => {
+    setSelectedAvatarSeed(seed);
+    setShowAvatarSelector(false);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("userAvatarSeed", seed);
+      window.dispatchEvent(
+        new CustomEvent("avatarChanged", { detail: { seed } })
+      );
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log("File selected:", file.name);
+      // TODO: Upload to backend
     }
   };
 
@@ -56,73 +96,35 @@ export default function ProfilePage() {
         <div className="flex items-start justify-between mb-6">
           <div className="flex-1">
             <Breadcrumb items={breadcrumbItems} />
-            <h1 className="text-3xl font-bold mt-2 mb-2" style={{ color: 'rgb(var(--fg-primary)) !important' }}>Profile</h1>
-            <p className="text-lg" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
+            <h1
+              className="text-3xl font-bold mt-2 mb-2"
+              style={{ color: "rgb(var(--fg-primary)) !important" }}
+            >
+              Profile
+            </h1>
+            <p
+              className="text-lg"
+              style={{ color: "rgb(var(--fg-secondary)) !important" }}
+            >
               Manage your account settings and preferences
             </p>
           </div>
-          <div className="flex items-center gap-3 ml-6">
-            <button 
-              onClick={() => setIsEditing(!isEditing)}
-              className={isEditing ? 'btn-secondary' : 'btn-primary'}
-            >
-              <i className={`${isEditing ? 'ri-close-line' : 'ri-edit-line'} w-4 h-4 mr-2`}></i>
-              {isEditing ? 'Cancel' : 'Edit Profile'}
-            </button>
-          </div>
         </div>
 
-        {/* Profile Header */}
-        <div className="modern-card mb-6">
-          <div className="flex items-center gap-6">
-            <div className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold" style={{ background: 'rgb(var(--primary)) !important' }}>
-              {user.name.split(' ').map(n => n[0]).join('')}
-            </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold" style={{ color: 'rgb(var(--fg-primary)) !important' }}>{user.name}</h2>
-              <p className="text-lg" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>{user.role}</p>
-              <p style={{ color: 'rgb(var(--fg-tertiary)) !important' }}>{user.department}</p>
-              <div className="flex items-center gap-4 mt-2 text-sm" style={{ color: 'rgb(var(--fg-quaternary)) !important' }}>
-                <span className="flex items-center gap-1">
-                  <i className="ri-calendar-line w-4 h-4"></i>
-                  Joined {new Date(user.joinDate).toLocaleDateString()}
-                </span>
-                <span className="flex items-center gap-1">
-                  <i className="ri-map-pin-line w-4 h-4"></i>
-                  {user.location}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          {stats.map((stat, index) => (
-            <div key={index} className="modern-card text-center">
-              <div className={`w-12 h-12 ${stat.color} rounded-lg mx-auto mb-3 flex items-center justify-center`}>
-                <i className={`${stat.icon} text-white w-6 h-6`}></i>
-              </div>
-              <div className="text-2xl font-bold" style={{ color: 'rgb(var(--fg-primary)) !important' }}>{stat.value}</div>
-              <div className="text-sm" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Tabs */}
+        {/* Tab Navigation */}
         <div className="modern-card">
-          <div className="border-b mb-6" style={{ borderColor: 'rgb(var(--shade-200)) !important' }}>
+          <div
+            className="border-b mb-6"
+            style={{ borderColor: "rgb(var(--shade-200)) !important" }}
+          >
             <div className="flex space-x-8">
-              {[
-                { id: 'personal', label: 'Personal Info', icon: 'ri-user-line' },
-                { id: 'security', label: 'Security', icon: 'ri-shield-line' },
-                { id: 'preferences', label: 'Preferences', icon: 'ri-settings-line' },
-                { id: 'activity', label: 'Activity', icon: 'ri-history-line' }
-              ].map((tab) => (
+              {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`profile-tab ${activeTab === tab.id ? 'active' : ''}`}
+                  className={`profile-tab ${
+                    activeTab === tab.id ? "active" : ""
+                  }`}
                 >
                   <i className={`${tab.icon} w-4 h-4 mr-2`}></i>
                   {tab.label}
@@ -131,158 +133,318 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Tab Content */}
-          {activeTab === 'personal' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    defaultValue={user.name}
-                    disabled={!isEditing}
-                    className="modern-input"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    defaultValue={user.email}
-                    disabled={!isEditing}
-                    className="modern-input"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    defaultValue={user.phone}
-                    disabled={!isEditing}
-                    className="modern-input"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                    Location
-                  </label>
-                  <input
-                    type="text"
-                    defaultValue={user.location}
-                    disabled={!isEditing}
-                    className="modern-input"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                  Bio
-                </label>
-                <textarea
-                  rows={4}
-                  defaultValue={user.bio}
-                  disabled={!isEditing}
-                  className="modern-input"
-                />
-              </div>
-              {isEditing && (
-                <div className="flex gap-3">
-                  <button className="btn-primary">Save Changes</button>
-                  <button className="btn-secondary">Reset</button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'security' && (
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold mb-4" style={{ color: 'rgb(var(--fg-primary)) !important' }}>Change Password</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                      Current Password
-                    </label>
-                    <input
-                      type="password"
-                      className="modern-input"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                      New Password
-                    </label>
-                    <input
-                      type="password"
-                      className="modern-input"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'rgb(var(--fg-secondary)) !important' }}>
-                      Confirm New Password
-                    </label>
-                    <input
-                      type="password"
-                      className="modern-input"
-                    />
-                  </div>
-                  <button className="btn-primary">Update Password</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'preferences' && (
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold mb-4" style={{ color: 'rgb(var(--fg-primary)) !important' }}>Notifications</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium" style={{ color: 'rgb(var(--fg-primary)) !important' }}>Email Notifications</p>
-                      <p className="text-sm" style={{ color: 'rgb(var(--fg-tertiary)) !important' }}>Receive email updates about your projects</p>
+          {/* Overview Tab Content */}
+          {activeTab === "overview" && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left Column - Profile Picture Section */}
+              <div className="space-y-8">
+                {/* Profile Picture Card */}
+                <div className="modern-card p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <h3
+                        className="text-lg font-semibold"
+                        style={{ color: "rgb(var(--fg-primary))" }}
+                      >
+                        Profile picture
+                      </h3>
+                      <i className="ri-information-line w-4 h-4 text-gray-400"></i>
                     </div>
-                    <div className="toggle-switch active"></div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium" style={{ color: 'rgb(var(--fg-primary)) !important' }}>Push Notifications</p>
-                      <p className="text-sm" style={{ color: 'rgb(var(--fg-tertiary)) !important' }}>Get notified about important updates</p>
-                    </div>
-                    <div className="toggle-switch"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
-          {activeTab === 'activity' && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold" style={{ color: 'rgb(var(--fg-primary)) !important' }}>Recent Activity</h3>
-              <div className="space-y-3">
-                {recentActivity.map((activity) => (
-                  <div key={activity.id} className="activity-item">
-                    <div className="activity-icon">
-                      <i className={`${getActivityIcon(activity.type)} w-4 h-4 text-white`}></i>
+                  <div className="flex items-center gap-6">
+                    <div className="relative">
+                      <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-gray-200">
+                        <UserAvatarWithFallback
+                          userId={selectedAvatarSeed}
+                          userName={user.name}
+                          userEmail={user.email}
+                          profileImage={user.avatar || undefined}
+                          size={80}
+                          className="w-full h-full"
+                        />
+                      </div>
+                      <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                        PRO
+                      </span>
                     </div>
+
                     <div className="flex-1">
-                      <p style={{ color: 'rgb(var(--fg-primary)) !important' }} className="font-medium">{activity.action}</p>
-                      <p className="text-sm" style={{ color: 'rgb(var(--fg-quaternary)) !important' }}>
-                        {new Date(activity.date).toLocaleDateString()}
+                      <h4
+                        className="text-xl font-semibold mb-1"
+                        style={{ color: "rgb(var(--fg-primary))" }}
+                      >
+                        {user.name}
+                      </h4>
+                      <p className="text-gray-500 mb-4">{user.role}</p>
+
+                      <button
+                        onClick={() => setShowAvatarSelector(true)}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                      >
+                        <i className="ri-edit-line w-4 h-4"></i>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Personal Information Card */}
+                <div className="modern-card p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <h3
+                        className="text-lg font-semibold"
+                        style={{ color: "rgb(var(--fg-primary))" }}
+                      >
+                        Personal information
+                      </h3>
+                      <i className="ri-information-line w-4 h-4 text-gray-400"></i>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-2">
+                        Full name
+                      </label>
+                      <p className="text-gray-400">{user.name}</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-2">
+                        Email Address
+                      </label>
+                      <p className="text-gray-400">{user.email}</p>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-600 mb-2">
+                        Biography
+                      </label>
+                      <p className="text-gray-400 leading-relaxed">
+                        {user.bio}
                       </p>
                     </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-2">
+                        Home Address
+                      </label>
+                      <p className="text-gray-400">{user.address}</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-2">
+                        Phone Number
+                      </label>
+                      <p className="text-gray-400">{user.phone}</p>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-600 mb-2">
+                        Software Skills
+                      </label>
+                      <div className="flex flex-wrap gap-2">
+                        {user.skills.map((skill, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
+
+                  <div className="mt-6">
+                    <label className="block text-sm font-medium text-gray-600 mb-2">
+                      Social
+                    </label>
+                    <div className="flex gap-4">
+                      <a
+                        href={`https://linkedin.com/in/${user.socialLinks.linkedin}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
+                      >
+                        <i className="ri-linkedin-fill w-4 h-4"></i>
+                      </a>
+                      <a
+                        href={`https://twitter.com/${user.socialLinks.twitter.replace(
+                          "@",
+                          ""
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 bg-black rounded flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
+                      >
+                        <i className="ri-twitter-x-fill w-4 h-4"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Settings Forms */}
+              <div className="space-y-8">
+                {/* Timezone & Language Settings */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                      Timezone
+                      <i className="ri-information-line w-4 h-4 text-gray-400"></i>
+                    </label>
+                    <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
+                      <option>{user.timezone}</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Language
+                    </label>
+                    <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
+                      <option>Choose your account type</option>
+                      <option>English</option>
+                      <option>Spanish</option>
+                      <option>French</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Date of Birth & Gender */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Date of birth
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="date"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                        placeholder="Select date"
+                      />
+                      <i className="ri-calendar-line absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Gender
+                    </label>
+                    <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
+                      <option>Choose your gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                      <option>Prefer not to say</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Save Button */}
+                <div className="flex justify-end">
+                  <button className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Other Tab Contents */}
+          {activeTab !== "overview" && (
+            <div className="space-y-6">
+              <div>
+                <h3
+                  className="text-lg font-semibold mb-4"
+                  style={{ color: "rgb(var(--fg-primary)) !important" }}
+                >
+                  {tabs.find((t) => t.id === activeTab)?.label}
+                </h3>
+                <div className="p-8 text-center">
+                  <div className="max-w-md mx-auto">
+                    <i
+                      className={`${
+                        tabs.find((t) => t.id === activeTab)?.icon
+                      } w-12 h-12 mx-auto mb-4 text-gray-400`}
+                    ></i>
+                    <p className="text-gray-500">
+                      This section is under development. Content for{" "}
+                      {tabs
+                        .find((t) => t.id === activeTab)
+                        ?.label.toLowerCase()}{" "}
+                      will be available soon.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div
+            className="pt-6 border-t"
+            style={{ borderColor: "rgb(var(--shade-200)) !important" }}
+          >
+            <div className="flex gap-3">
+              <button className="btn-primary">Save Changes</button>
+              <button className="btn-secondary">Reset to Default</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Avatar Selection Modal */}
+        {showAvatarSelector && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div
+              className="bg-white rounded-2xl p-6 max-w-md w-full mx-4"
+              style={{ backgroundColor: "rgb(var(--bg-primary))" }}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3
+                  className="text-xl font-bold"
+                  style={{ color: "rgb(var(--fg-primary))" }}
+                >
+                  Choose Avatar
+                </h3>
+                <button
+                  onClick={() => setShowAvatarSelector(false)}
+                  className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                >
+                  <i className="ri-close-line w-4 h-4"></i>
+                </button>
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                {avatarOptions.map((seed, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleAvatarSelect(seed)}
+                    className="w-16 h-16 rounded-full overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all"
+                  >
+                    <UserAvatarWithFallback
+                      userId={seed}
+                      userName={user.name}
+                      userEmail={user.email}
+                      size={64}
+                      className="w-full h-full"
+                    />
+                  </button>
                 ))}
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+        />
       </div>
     </div>
   );

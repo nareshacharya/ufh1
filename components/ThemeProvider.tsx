@@ -2,8 +2,8 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "light" | "dark" | "blue" | "green" | "system";
-type ResolvedTheme = "light" | "dark" | "blue" | "green";
+type Theme = "light" | "light-warm" | "dark" | "dark-cool" | "system";
+type ResolvedTheme = "light" | "light-warm" | "dark" | "dark-cool";
 
 interface ThemeContextType {
   theme: Theme;

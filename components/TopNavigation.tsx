@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { routeConfig } from "../lib/config/routes";
 import { ThemeToggle } from "./ThemeToggle";
+import { UserAvatarWithFallback } from "./UserAvatar";
 import { canAccessRoute, Role } from "../lib/auth/rbac";
 import { getCurrentUserRole, generateShareableLink } from "../lib/auth/session";
 import { useAuth } from "../hooks/useAuth";
@@ -63,12 +64,39 @@ export function TopNavigation() {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCreateExpanded, setIsCreateExpanded] = useState(false);
+  const [avatarSeed, setAvatarSeed] = useState("john.smith@foodinnovation.com");
 
   // Force reset mobile menu state on mount for desktop
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth >= 1024) {
       setIsMobileMenuOpen(false);
     }
+  }, []);
+
+  // Listen for avatar changes and sync with profile page
+  useEffect(() => {
+    // Load saved avatar on mount
+    const savedSeed = localStorage.getItem("userAvatarSeed");
+    if (savedSeed) {
+      setAvatarSeed(savedSeed);
+    }
+
+    // Listen for avatar change events
+    const handleAvatarChange = (event: CustomEvent) => {
+      setAvatarSeed(event.detail.seed);
+    };
+
+    window.addEventListener(
+      "avatarChanged",
+      handleAvatarChange as EventListener
+    );
+
+    return () => {
+      window.removeEventListener(
+        "avatarChanged",
+        handleAvatarChange as EventListener
+      );
+    };
   }, []);
   const [userRole, setUserRole] = useState<Role | null>(null);
   const [showShareToast, setShowShareToast] = useState(false);
@@ -466,11 +494,6 @@ export function TopNavigation() {
                 </div>
               </Link>
 
-              {/* Theme Toggle - Desktop only */}
-              <div className="hidden md:block">
-                <ThemeToggle />
-              </div>
-
               {/* Mobile menu button - should only show on mobile/tablet */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -493,21 +516,15 @@ export function TopNavigation() {
                   onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-shade-100 transition-colors"
                 >
-                  <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center shadow-md"
-                    style={{ backgroundColor: "#9333ea" }}
-                  >
-                    <span
-                      className="text-xs font-semibold"
-                      style={{ color: "white" }}
-                    >
-                      {isSharedLink || displayUser.isSharedLink
-                        ? "SA"
-                        : displayUser?.name?.charAt(0) ||
-                          displayUser?.email?.charAt(0) ||
-                          "U"}
-                    </span>
-                  </div>
+                  <UserAvatarWithFallback
+                    userId={avatarSeed}
+                    userName={displayUser?.name || "User"}
+                    userEmail={
+                      displayUser?.email || "john.smith@foodinnovation.com"
+                    }
+                    size={32}
+                    className="ring-2 ring-white/20"
+                  />
                   <div className="hidden sm:block text-left">
                     <p className="font-medium text-sm text-rgb-fg-primary">
                       {isSharedLink || displayUser.isSharedLink
@@ -569,14 +586,18 @@ export function TopNavigation() {
                         </Link>
                       ))}
 
-                      <div className="px-4 py-2.5 border-b border-shade-200">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-rgb-fg-secondary">
-                            Theme
-                          </span>
-                          <ThemeToggle />
+                      <Link
+                        href="/settings/theme"
+                        className="flex items-center gap-3 px-4 py-2.5 hover:bg-shade-100 transition-colors text-rgb-fg-secondary border-b border-shade-200"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                      >
+                        <div className="w-4 h-4 flex items-center justify-center">
+                          <i className="ri-palette-line text-base"></i>
                         </div>
-                      </div>
+                        <span className="font-medium text-sm">
+                          Theme & Appearance
+                        </span>
+                      </Link>
 
                       <div className="pt-1">
                         <button
