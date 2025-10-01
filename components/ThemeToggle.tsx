@@ -1,13 +1,12 @@
+"use client";
 
-'use client';
-
-import { useTheme } from './ThemeProvider';
+import { useTheme } from "./ThemeProvider";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const handleThemeChange = () => {
-    const themes = ['light', 'dark', 'system'] as const;
+    const themes = ["light", "dark", "blue", "green", "system"] as const;
     const currentIndex = themes.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themes.length;
     setTheme(themes[nextIndex]);
@@ -15,27 +14,35 @@ export function ThemeToggle() {
 
   const getThemeIcon = () => {
     switch (theme) {
-      case 'light':
-        return 'ri-sun-line';
-      case 'dark':
-        return 'ri-moon-line';
-      case 'system':
-        return 'ri-computer-line';
+      case "light":
+        return "ri-sun-line";
+      case "dark":
+        return "ri-moon-line";
+      case "blue":
+        return "ri-water-line";
+      case "green":
+        return "ri-leaf-line";
+      case "system":
+        return "ri-computer-line";
       default:
-        return 'ri-sun-line';
+        return "ri-sun-line";
     }
   };
 
   const getThemeLabel = () => {
     switch (theme) {
-      case 'light':
-        return 'Light';
-      case 'dark':
-        return 'Dark';
-      case 'system':
-        return 'System';
+      case "light":
+        return "Light";
+      case "dark":
+        return "Dark";
+      case "blue":
+        return "Ocean";
+      case "green":
+        return "Nature";
+      case "system":
+        return "System";
       default:
-        return 'Light';
+        return "Light";
     }
   };
 
@@ -46,7 +53,9 @@ export function ThemeToggle() {
       aria-label={`Switch to ${getThemeLabel()} theme`}
       title={`Current: ${getThemeLabel()}`}
     >
-      <i className={`${getThemeIcon()} w-4 h-4 flex items-center justify-center`}></i>
+      <i
+        className={`${getThemeIcon()} w-4 h-4 flex items-center justify-center`}
+      ></i>
       <span className="hidden sm:inline">{getThemeLabel()}</span>
     </button>
   );

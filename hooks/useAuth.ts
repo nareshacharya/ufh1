@@ -22,7 +22,7 @@ export function useAuth(): UseAuthReturn {
 
   const loadUser = useCallback(async () => {
     if (initialized) return;
-    
+
     try {
       setLoading(true);
       setError(null);
@@ -45,12 +45,12 @@ export function useAuth(): UseAuthReturn {
     try {
       setLoading(true);
       setError(null);
-      
+
       console.log('Login attempt:', { email });
-      
+
       if (email === 'admin@perfumery.com' && password === 'password123') {
         setDemoSession();
-        
+
         const mockUser: UserSession = {
           id: '1',
           email,
@@ -59,14 +59,14 @@ export function useAuth(): UseAuthReturn {
           isAuthenticated: true,
           isSharedLink: false
         };
-        
+
         // Store user details in session storage for retrieval by getCurrentUserRole()
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('user_role', mockUser.role);
           sessionStorage.setItem('user_name', mockUser.name);
           sessionStorage.setItem('user_email', mockUser.email);
         }
-        
+
         setUser(mockUser);
       } else {
         throw new Error('Invalid credentials. Use admin@perfumery.com / password123');
@@ -83,15 +83,15 @@ export function useAuth(): UseAuthReturn {
     try {
       setLoading(true);
       setError(null);
-      
+
       clearSession();
       setUser(null);
-      
+
       if (isSharedLinkSession()) {
         window.location.reload();
         return;
       }
-      
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Logout failed');
       throw err;
