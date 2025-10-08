@@ -1,147 +1,107 @@
+"use client";
 
-'use client';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { DynamicForm } from "@/components/DynamicForm";
 
-import React, { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCaseController } from '@/app/features/cases/controller/caseController';
-import { CaseChrome, CaseMetadata } from '@/app/features/cases/view/CaseChrome';
-import { getChromeConfig } from '@/lib/caseflow/registry';
-import { Action } from '@/lib/caseflow/schema';
+interface Assignment {
+  ID: string;
+  name: string;
+  actions: string[];
+}
+
+interface CaseData {
+  ID: string;
+  caseTypeID: string;
+  status: string;
+  content: Record<string, any>;
+  assignments: Assignment[];
+}
 
 interface CaseViewControllerProps {
   caseTypeId: string;
   caseId: string;
+  initialData?: CaseData;
 }
 
-export default function CaseViewController({ caseTypeId, caseId }: CaseViewControllerProps) {
+export default function CaseViewController({
+  caseTypeId,
+  caseId,
+  initialData,
+}: CaseViewControllerProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  
-  // Mock user roles for RBAC testing - in real app this would come from auth context
-  const userRoles = ['ingredient_manager', 'formula_developer', 'admin']; // Mock roles for testing
+  const [caseData, setCaseData] = useState<CaseData | null>(
+    initialData || null
+  );
+  const [isLoading, setIsLoading] = useState(!initialData);
+  const [error, setError] = useState<string | null>(null);
 
-  const {
-    template,
-    data,
-    currentStageIndex,
-    currentStepIndex,
-    currentStage,
-    currentStep,
-    isLoading,
-    error,
-    updateField,
-    onAction,
-    save,
-    navigateToStep
-  } = useCaseController({
-    caseId,
-    templateId: caseTypeId,
-    onSave: (savedData) => {
-      console.log('Case saved:', savedData);
-    },
-    onError: (error) => {
-      console.error('Case error:', error);
-    }
-  });
+  const isNewCase = caseId === "new";
 
-  // Handle deep linking from URL parameters
+  // Fetch existing case data if not creating a new case
   useEffect(() => {
-    if (!template || !template.stages || isLoading) return;
-
-    const urlStage = searchParams.get('stage');
-    const urlStep = searchParams.get('step');
-
-    if (urlStage || urlStep) {
-      // Find the stage and step indices from URL parameters
-      let targetStageIndex = currentStageIndex;
-      let targetStepIndex = currentStepIndex;
-
-      if (urlStage) {
-        const stageIndex = template.stages.findIndex(s => s.id === urlStage);
-        if (stageIndex !== -1) {
-          targetStageIndex = stageIndex;
-        }
-      }
-
-      if (urlStep && template.stages[targetStageIndex]) {
-        const stepIndex = template.stages[targetStageIndex].steps.findIndex(s => s.id === urlStep);
-        if (stepIndex !== -1) {
-          targetStepIndex = stepIndex;
-        }
-      }
-
-      // Navigate to the URL-specified step if different from current
-      if (targetStageIndex !== currentStageIndex || targetStepIndex !== currentStepIndex) {
-        navigateToStep(targetStageIndex, targetStepIndex);
-      }
+    if (!isNewCase && !initialData) {
+      fetchCaseData();
     }
-  }, [template, searchParams, currentStageIndex, currentStepIndex, navigateToStep, isLoading]);
+  }, [caseId, caseTypeId, initialData]);
 
-  // Update URL when stage/step changes
-  const updateURL = (stageId: string, stepId: string) => {
-    const params = new URLSearchParams();
-    params.set('stage', stageId);
-    params.set('step', stepId);
-    
-    const newURL = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState(null, '', newURL);
-  };
-
-  // Handle stage/step changes and update URL
-  useEffect(() => {
-    if (currentStage && currentStep && !isLoading) {
-      updateURL(currentStage.id, currentStep.id);
-    }
-  }, [currentStage, currentStep, isLoading]);
-
-  // Mock case metadata - in real app this would come from the case data
-  const metadata: CaseMetadata = {
-    id: caseId,
-    createdBy: 'Alice Johnson',
-    createdAt: '2024-01-15T08:30:00Z',
-    owner: 'Bob Smith',
-    lastModifiedBy: 'Alice Johnson',
-    lastModifiedAt: '2024-01-16T14:22:00Z',
-    version: '1.2.0',
-    sla: {
-      dueDate: '2024-01-25T17:00:00Z',
-      priority: 'medium',
-      status: 'on_track'
-    },
-    status: data.status || 'draft'
-  };
-
-  const handleAction = (action: Action, caseData: any) => {
-    console.log('Executing action:', action.id, 'with data:', caseData);
-    onAction(action);
-  };
-
-  const handleContextualAction = (actionId: string) => {
-    console.log('Contextual action:', actionId);
-    // Handle contextual actions like edit, duplicate, export, etc.
-    switch (actionId) {
-      case 'edit':
-        console.log('Edit mode activated');
-        break;
-      case 'duplicate':
-        console.log('Duplicating case');
-        break;
-      case 'export':
-        console.log('Exporting case');
-        break;
-      case 'calculate_cost':
-        console.log('Calculating formula cost');
-        break;
-      case 'validate_compliance':
-        console.log('Validating compliance');
-        break;
-      default:
-        console.log('Unknown contextual action:', actionId);
+  const fetchCaseData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/cases/${caseId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch case data");
+      }
+      const data = await response.json();
+      setCaseData(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load case");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleStageStepChange = (stageIndex: number, stepIndex: number) => {
-    navigateToStep(stageIndex, stepIndex);
+  const handleFormSubmit = async (formData: Record<string, any>) => {
+    try {
+      const url = isNewCase ? "/api/cases" : `/api/cases/${caseId}`;
+      const method = isNewCase ? "POST" : "PUT";
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          caseTypeID: caseTypeId,
+          ...formData,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save case");
+      }
+
+      const savedCase = await response.json();
+
+      if (isNewCase) {
+        // Redirect to the newly created case view
+        router.push(`/case/${caseTypeId}/${savedCase.ID}`);
+      } else {
+        // Update local state with saved data
+        setCaseData(savedCase);
+      }
+    } catch (err) {
+      console.error("Error saving case:", err);
+      throw err; // Let the form handle the error display
+    }
+  };
+
+  const handleCancel = () => {
+    if (isNewCase) {
+      router.back();
+    } else {
+      router.push(`/cases`);
+    }
   };
 
   if (isLoading) {
@@ -149,7 +109,9 @@ export default function CaseViewController({ caseTypeId, caseId }: CaseViewContr
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading case...</p>
+          <p className="mt-4 text-gray-600">
+            {isNewCase ? "Loading form..." : "Loading case..."}
+          </p>
         </div>
       </div>
     );
@@ -159,12 +121,14 @@ export default function CaseViewController({ caseTypeId, caseId }: CaseViewContr
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <i className="ri-error-warning-line text-4xl text-red-500"></i>
-          <h2 className="mt-2 text-lg font-semibold text-gray-900">Error Loading Case</h2>
-          <p className="mt-1 text-gray-600">{error}</p>
+          <div className="text-4xl text-red-500 mb-4">⚠️</div>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            Error Loading Case
+          </h2>
+          <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
           >
             Try Again
           </button>
@@ -174,24 +138,45 @@ export default function CaseViewController({ caseTypeId, caseId }: CaseViewContr
   }
 
   return (
-    <CaseChrome
-      template={template}
-      mode="edit"
-      data={data}
-      metadata={metadata}
-      config={getChromeConfig(caseTypeId)}
-      currentStage={currentStageIndex}
-      currentStep={currentStepIndex}
-      userRoles={userRoles}
-      onChange={updateField}
-      onAction={handleAction}
-      onContextualAction={handleContextualAction}
-      onStageStepChange={handleStageStepChange}
-      breadcrumbs={[
-        { label: 'Cases', href: '/cases' },
-        { label: template.name, href: `/cases/${caseTypeId}` },
-        { label: caseId }
-      ]}
-    />
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <nav className="flex" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <a href="/cases" className="text-gray-700 hover:text-gray-900">
+                  Cases
+                </a>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <span className="mx-2 text-gray-400">/</span>
+                  <span className="text-gray-500">
+                    {isNewCase
+                      ? `New ${caseTypeId}`
+                      : `${caseTypeId} - ${caseId}`}
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          <h1 className="mt-4 text-3xl font-bold text-gray-900">
+            {isNewCase ? `Create New ${caseTypeId}` : `Edit ${caseTypeId}`}
+          </h1>
+          {caseData && !isNewCase && (
+            <p className="mt-2 text-gray-600">
+              Status: <span className="capitalize">{caseData.status}</span>
+            </p>
+          )}
+        </div>
+
+        <DynamicForm
+          caseTypeId={caseTypeId}
+          initialData={caseData?.content}
+          onSubmit={handleFormSubmit}
+          onCancel={handleCancel}
+        />
+      </div>
+    </div>
   );
 }
